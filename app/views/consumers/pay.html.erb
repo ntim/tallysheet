@@ -1,0 +1,19 @@
+<h1>Pay</h1>
+
+<%= form_tag(consumer_pay_path(@consumer)) do %>
+
+  <div class="field">
+  	<%= label_tag :name %><br>
+  	<%= @consumer.name %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :amount %><br>
+    <%= text_field_tag :amount %> €<br>
+    (current debt: <%= style_debt @consumer.debt %>)
+  </div>
+  <div class="actions">
+    <%= submit_tag 'Pay' %>
+  </div>
+  
+<% end %>

@@ -1,0 +1,35 @@
+<h1>Listing tallysheet_entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Consumer</th>
+      <th>Beverage</th>
+      <th>Amount</th>
+      <th>Price</th>
+      <th>Payed</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tallysheet_entries.each do |tallysheet_entry| %>
+      <tr>
+        <td><%= tallysheet_entry.consumer.name %></td>
+        <td><%= tallysheet_entry.beverage.name %></td>
+        <td><%= tallysheet_entry.amount %></td>
+        <td><%= tallysheet_entry.price %> €</td>
+        <td><%= tallysheet_entry.payed %></td>
+        <td><%= link_to 'Show', tallysheet_entry %></td>
+        <td><%= link_to 'Edit', edit_tallysheet_entry_path(tallysheet_entry) %></td>
+        <td><%= link_to 'Destroy', tallysheet_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tallysheet entry', new_tallysheet_entry_path %>

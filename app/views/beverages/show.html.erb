@@ -1,0 +1,12 @@
+<p>
+  <strong>Name:</strong>
+  <%= @beverage.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= "%.2f" % @beverage.price %> €
+</p>
+
+<%= link_to 'Edit', edit_beverage_path(@beverage) %> |
+<%= link_to 'Back', beverages_path %>

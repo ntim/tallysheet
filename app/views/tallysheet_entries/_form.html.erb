@@ -1,0 +1,30 @@
+<%= form_for(@tallysheet_entry) do |f| %>
+  <% if @tallysheet_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tallysheet_entry.errors.count, "error") %> prohibited this tallysheet_entry from being saved:</h2>
+
+      <ul>
+      <% @tallysheet_entry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :consumer %><br>
+    <%= f.collection_select :consumer_id, @consumers, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :beverage %><br>
+    <%= f.collection_select :beverage_id, @beverages, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.number_field :amount %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

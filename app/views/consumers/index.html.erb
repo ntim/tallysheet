@@ -1,0 +1,33 @@
+<h1>Listing consumers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Credit</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @consumers.each do |consumer| %>
+      <tr>
+        <td><%= consumer.name %></td>
+        <td><%= consumer.email %></td>
+        <td><%= style_credit consumer.credit %></td>
+        <td><%= link_to 'Show', consumer %></td>
+        <td><%= link_to 'Pay', consumer_pay_path(consumer) %></td>
+        <td><%= link_to 'Edit', edit_consumer_path(consumer) %></td>
+        <td><%= link_to 'Destroy', consumer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Consumer', new_consumer_path %>

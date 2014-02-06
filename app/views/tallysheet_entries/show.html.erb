@@ -1,0 +1,27 @@
+<p>
+  <strong>Consumer:</strong>
+  <%= @tallysheet_entry.consumer.name %>
+</p>
+
+<p>
+  <strong>Beverage:</strong>
+  <%= @tallysheet_entry.beverage.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @tallysheet_entry.amount %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @tallysheet_entry.price %> €
+</p>
+
+<p>
+  <strong>Payed:</strong>
+  <%= @tallysheet_entry.payed %>
+</p>
+
+<%= link_to 'Edit', edit_tallysheet_entry_path(@tallysheet_entry) %> |
+<%= link_to 'Back', tallysheet_entries_path %>

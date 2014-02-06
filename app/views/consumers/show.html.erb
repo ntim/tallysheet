@@ -1,0 +1,54 @@
+<p>
+  <strong>Name:</strong>
+  <%= @consumer.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @consumer.email %>
+</p>
+
+<p>
+  <strong>Credit:</strong>
+  <%= style_credit @consumer.credit %>
+</p>
+
+<p>
+  <strong>Debt:</strong>
+  <%= style_debt @consumer.debt %>
+</p>
+
+<p>
+  <strong>Tallysheet entries:</strong>
+  <% if @consumer.tallysheet_entries.length > 0 %>
+  <br><table>
+  	<thead>
+	  	<th>Date</th>
+	  	<th>Name</th>
+	  	<th>Amount</th>
+	  	<th>Price</th>
+  	</thead>
+  	<% @consumer.tallysheet_entries.each do |e| %>
+  	<% if !e.payed %>
+  	<tr>
+  		<td><%= e.created_at.to_formatted_s(:short) %></td>
+  		<td><%= e.beverage.name %></td>
+  		<td><%= e.amount %></td>
+  		<td><%= "%.2f" % e.price %> €</td>
+  	</tr>
+  	<% end %>
+  	<% end %>
+  	<tfoot>
+  		<td colspan="3" style="text-align: right">Sum:</td>
+  		<th ><%= "%.2f" % (@consumer.debt + @consumer.credit) %> €</th>
+    </tfoot>
+  <table>
+  <% else %>
+  -
+ <% end %>
+</p>
+
+<%= link_to 'Edit', edit_consumer_path(@consumer) %> | 
+<%= link_to 'Pay', consumer_pay_path(@consumer) %> | 
+<%= link_to 'History', consumer_history_path(@consumer) %> | 
+<%= link_to 'Back', consumers_path %>

@@ -1,0 +1,31 @@
+<table>
+  <thead>
+    <tr>
+      <th>Consumer</th>
+      <th>Beverages</th>
+      <th>Paid beverages</th>
+      <th>Debt</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @consumers.each do |consumer| %>
+      <tr>
+        <td><%= consumer.name %></td>
+        <td><%= consumer.amount_of_beverages %></td>
+        <td><%= consumer.amount_of_payed_beverages %></td>
+        <td><%= style_debt consumer.debt %></td>
+        <td><%= link_to 'Show', consumer_path(consumer)%></td>
+        <td><%= link_to 'Pay', consumer_pay_path(consumer)%></td>
+        <td><%= link_to_if consumer.debt > 0, 'Remind', consumer_mail_debt_remainder_path(consumer), data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New tallysheet entry', new_tallysheet_entry_path %>

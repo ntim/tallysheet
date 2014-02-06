@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tallysheet</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <style media="screen">
+      body {
+        margin: 0;
+        margin-bottom: 25px;
+        padding: 0;
+        background-color: #dbdee3;
+        font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
+        font-size: 12px;
+        color: #333;
+      }
+
+      p, ol, ul, td {
+	    font-family: verdana,arial,helvetica,sans-serif;
+	    font-size: 1em;
+	    line-height: 18px;
+	  }
+
+      h1 {
+        font-size: 2em;
+        color: #000;
+      }
+
+      a, a:visited  {color: #0066ff}
+      a:hover {
+        background-color: #0066ff;
+        color: white;
+        text-decoration: none;
+      }
+
+
+      #page {
+        background-color: #dbdee3;
+        width: 1000px;
+        margin: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #content {
+        float: left;
+        background-color: white;
+        border: 3px solid #6f7c91;
+        border-top: none;
+        padding: 25px;
+        width: 750px;
+      }
+
+      #sidebar {
+        float: right;
+        width: 175px;
+      }
+
+      #footer {
+        clear: both;
+      }
+
+      #header, #about, #yield {
+        padding-left: 75px;
+        padding-right: 30px;
+      }
+
+      #header {
+        background-image: url(<%= image_path('logo.png') %>);
+        background-repeat: no-repeat;
+        background-position: top left;
+        height: 64px;
+      }
+      #header h1, #header h2 {margin-top: 0}
+      #header h2 {
+        color: #888;
+        font-weight: normal;
+        font-size: 1.5em;
+      }
+
+
+      #about h3 {
+        margin: 0;
+        margin-bottom: 10px;
+        font-size: 1em;
+      }
+
+      #about-content {
+        background-color: #ffd;
+        border: 1px solid #fc0;
+        margin-left: -55px;
+        margin-right: -10px;
+      }
+      #about-content table {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 0.8em;
+        border-collapse: collapse;
+      }
+      #about-content td {
+        padding: 10px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
+      #about-content td.name  {color: #555}
+      #about-content td.value {color: #000}
+
+      #about-content ul {
+        padding: 0;
+        list-style-type: none;
+      }
+
+      #about-content.failure {
+        background-color: #fcc;
+        border: 1px solid #f00;
+      }
+      #about-content.failure p {
+        margin: 0;
+        padding: 10px;
+      }
+
+
+      #yield {
+        border-top: 1px solid #ccc;
+        margin-top: 25px;
+        padding-top: 15px;
+      }
+      #yield h1 {
+        margin-left: 0;
+        margin-top: 0;
+        font-size: 2em;
+      }
+      #yield h2 {
+        margin: 0;
+        font-size: 1.5em;
+        font-weight: normal;
+        color: #333;
+        margin-bottom: 25px;
+      }
+      
+      #yield table {
+      	width: 100%;
+      	border-collapse: collapse;
+      	border: none;
+      }
+      
+      #yield th {
+      	border: 0.25em white solid;
+      	background-color: #d5e5ff;
+      	text-align: left;
+      	padding: 0.5em;
+      }
+      
+      #yield td {
+      	border: 0.25em white solid;
+      	padding: 0.5em;
+      }
+
+      #sidebar ul {
+        margin-left: 0;
+        padding-left: 0;
+      }
+      #sidebar ul h3 {
+        margin-top: 25px;
+        font-size: 1.5em;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+      #sidebar li {
+        list-style-type: none;
+      }
+      #sidebar ul.links li {
+        margin-bottom: 5px;
+      }
+
+      .filename {
+        font-style: italic;
+      }
+      
+      #notice {
+      	margin-bottom: 1em;
+      }
+      
+      #notice .error {
+      	color: red
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page">
+      <div id="sidebar">
+        <ul id="sidebar-items">
+          <li>
+            <h3>Navigation</h3>
+            <ul class="links">
+              <li><%= link_to "Home", controller: "dashboard", action: "index" %></li>
+              <li><%= link_to "Consumers", controller: "consumers", action: "index" %></li>
+              <li><%= link_to "Beverages", controller: "beverages", action: "index" %></li>
+              <li><%= link_to "New tallysheet entry", controller: "tallysheet_entries", action: "new" %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div id="content">
+        <div id="header">
+          <h1>The tallysheet</h1>
+          <h2>Welcome aboard!</h2>
+        </div>
+        <div id="yield">
+		  <% flash.each do |name, msg| -%>
+		  <div id="notice">
+      		<%= content_tag :div, msg, class: name %>
+		  </div>
+    	  <% end %>
+          <%= yield %>
+        </div>
+      </div>
+
+      <div id="footer">&nbsp;</div>
+    </div>
+  </body>
+</html>
+
