@@ -1,4 +1,6 @@
 Tallysheet::Application.routes.draw do
+  get '/tallysheet_entries/new_many'
+  post '/tallysheet_entries/create_many'
   resources :tallysheet_entries
 
   resources :beverages

@@ -1,0 +1,19 @@
+<%= form_for(:tallysheet_entries, url: tallysheet_entries_create_many_path) do |f| %>
+
+  <div class="field">
+    <%= label_tag :beverage %><br>
+    <%= f.collection_select :beverage_id, @beverages, :id, :name %>
+  </div>
+  
+  <div class="field">
+    <%= label_tag :consumer %><br>
+    <%= f.collection_check_boxes :consumer_ids, @consumers, :id, :name %>
+  </div>
+
+  <p>The tallysheet of each customer will be incremented by one.</p>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  
+<% end %>

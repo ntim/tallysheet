@@ -17,8 +17,8 @@
   <tbody>
     <% @tallysheet_entries.each do |tallysheet_entry| %>
       <tr>
-        <td><%= tallysheet_entry.consumer.name %></td>
-        <td><%= tallysheet_entry.beverage.name %></td>
+        <td><%= tallysheet_entry.consumer != nil ? tallysheet_entry.consumer.name : '-' %></td>
+        <td><%= tallysheet_entry.beverage != nil ? tallysheet_entry.beverage.name : '-' %></td>
         <td><%= tallysheet_entry.amount %></td>
         <td><%= tallysheet_entry.price %> €</td>
         <td><%= tallysheet_entry.payed %></td>

@@ -1,6 +1,7 @@
 class TallysheetEntriesController < ApplicationController
   before_action :set_tallysheet_entry, only: [:show, :edit, :update, :destroy]
   before_action :init
+  include ApplicationHelper
   
   def init
     @consumers = Consumer.all
@@ -25,6 +26,35 @@ class TallysheetEntriesController < ApplicationController
 
   # GET /tallysheet_entries/1/edit
   def edit
+  end
+  
+  def new_many
+    @tallysheet_entry = TallysheetEntry.new
+  end
+  
+  def create_many
+    ids = params[:tallysheet_entries][:consumer_ids]
+    beverage_id = params[:tallysheet_entries][:beverage_id].to_i
+    # Check if there is at least one entry.
+    if ids.length < 0 || (ids.length == 1 && !numeric?(ids[1]))
+      flash[:error] = 'Please select at least one consumer.'
+      return redirect_to :back
+    end
+    # Create for each new consumer id on new tallysheet entry.
+    ids.each do |id|
+      if numeric?(id)
+        # Create.
+        entry = TallysheetEntry.new(consumer_id: id.to_i, beverage_id: beverage_id, amount: 1)
+        # Try to save.
+        if !entry.save
+          flash[:error] = 'Sorry, an error occured.'
+          return redirect_to :back
+        end
+      end
+    end
+    # Everything successful
+    flash[:notice] = 'Tallysheet entries were successfully created.'
+    return redirect_to root_path
   end
 
   # POST /tallysheet_entries
