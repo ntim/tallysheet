@@ -59,6 +59,16 @@
 
       #footer {
         clear: both;
+      	text-align: right;
+      	margin-right: 190px;
+      	padding-top: 15px;
+      }
+      
+      #footer a, #footer a:visited, #footer a:hover {
+        color: #6f7c91;
+      	background: none;
+      	text-decoration: none;
+      	opacity: 0.25
       }
 
       #header, #about, #yield {
@@ -185,6 +195,27 @@
       #notice .error {
       	color: red
       }
+      
+      th a, th a:hover, th a:visited {
+      	color: black;
+		background-color: inherit !important;
+		text-decoration: none;
+      }
+      
+      th .current {
+		padding-right: 16px;
+		background-repeat: no-repeat;
+		background-position: right center;
+      }
+		
+	  th .asc {
+		background-image: url(<%= image_path('arrow_up.png') %>);
+	  }
+		
+	  th .desc {
+		background-image: url(<%= image_path('arrow_down.png') %>);
+	  }
+		      
     </style>
   </head>
   <body>
@@ -218,7 +249,10 @@
         </div>
       </div>
 
-      <div id="footer">&nbsp;</div>
+      <div id="footer">
+      	<a href="http://www.rubyonrails.org" target="_blank">Running ruby on rails 4.0.0</a><br>
+      	<a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank">Famfamfam silk icons</a>
+      </div>
     </div>
   </body>
 </html>
