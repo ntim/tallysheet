@@ -1,7 +1,4 @@
-<p>
-  <strong>Name:</strong>
-  <%= @consumer.name %>
-</p>
+<h1>Consumer <%= @consumer.name %></h1>
 
 <p>
   <strong>Email:</strong>
@@ -20,7 +17,7 @@
 
 <p>
   <strong>Tallysheet entries:</strong>
-  <% if @consumer.tallysheet_entries.length > 0 %>
+  <% if @consumer.amount_of_beverages > 0 %>
   <br><table>
   	<thead>
 	  	<th>Date</th>
