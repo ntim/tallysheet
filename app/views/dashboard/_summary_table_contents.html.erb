@@ -1,4 +1,4 @@
-<table>
+<table id="summary_table_contents">
   <thead>
     <tr>
       <th><%= sortable "name", "Consumer" %></th>
@@ -10,7 +10,6 @@
       <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @consumers.each do |consumer| %>
       <tr>
@@ -24,7 +23,6 @@
       </tr>
     <% end %>
   </tbody>
-  
   <tfoot>
   	<th>Summary</th>
   	<th><%= total_amount_of_beverages %></th>

@@ -13,7 +13,7 @@ Tallysheet::Application.routes.draw do
   end
   
   get '/dashboard/admin' => 'dashboard#admin'
-  get '/dashboard/render_partial' => 'dashboard#render_partial'
+  get '/dashboard/render_partial'
   resources :dashboard
   root 'dashboard#index'
 

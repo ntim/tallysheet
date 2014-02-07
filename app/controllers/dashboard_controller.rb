@@ -1,7 +1,25 @@
 class DashboardController < ApplicationController
   before_filter :authenticate, :only => [:admin]
+  before_action :set_consumers, :only => [:index, :render_partial]
   helper_method :sort_column, :sort_direction, :sort_numeric_column
+  
   def index
+  end
+  
+  def admin
+  end
+
+  def render_partial
+    render :json => {
+        :html => render_to_string({
+            :partial => params[:partial_name]
+        })
+    }
+  end
+
+  private
+  
+  def set_consumers
     @consumers = Consumer.includes(:tallysheet_entries).order(sort_column + " " + sort_direction).all()
     if sort_numeric_column != nil
       method_name = sort_numeric_column
@@ -9,11 +27,6 @@ class DashboardController < ApplicationController
       @consumers = @consumers.sort_by{|e| dir * e.send(method_name)}
     end
   end
-  
-  def admin
-  end
-
-  private
 
   def sort_column
     Consumer.column_names.include?(params[:sort]) ? params[:sort] : "id"
@@ -29,15 +42,6 @@ class DashboardController < ApplicationController
 
   def sort_direction_numeric
     params[:direction] == "asc" ? 1 : -1
-  end
-
-  def render_partial
-    refresh
-    render :json => {
-        :html => render_to_string({
-            :partial => params[:partial_name]
-        })
-    }
   end
 
 end

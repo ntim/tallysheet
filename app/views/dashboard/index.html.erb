@@ -1,7 +1,7 @@
 <h1>Summary</h1>
 
-<div id="summary_table">
-	<%= render "summary_table" %>	
+<div id="summary_table_contents">
+  <%= render "summary_table_contents" %>
 </div>
 
 <script>	
@@ -10,21 +10,15 @@ $(document).ready(function(){
 });
 
 function updatePartial(name) {
+	var query = window.location.search.slice(1);
 	url = "<%= url_for :controller => "dashboard", :action => "render_partial" %>";
-	$.get(url + "?partial_name=" + name, function(data) {
+	$.get(url + "?partial_name=" + name + "&" + query, function(data) {
 		$("#" + name).html(data["html"]);
 	});
 }
 
 function updateDashboard() {
-	updatePartial("background_processes")
-	updatePartial("system_log")
-	updatePartial("environment_log")
-	updatePartial("moon")
-	updatePartial("run")
-	updatePartial("bias_voltage")
-	updatePartial("actions")
-	updatePartial("camera")
+	updatePartial("summary_table_contents")
 }
 </script>
 
