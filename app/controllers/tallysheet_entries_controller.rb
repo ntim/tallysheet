@@ -44,7 +44,7 @@ class TallysheetEntriesController < ApplicationController
     ids.each do |id|
       if numeric?(id)
         # Create.
-        entry = TallysheetEntry.new(consumer_id: id.to_i, beverage_id: beverage_id, amount: 1)
+        entry = TallysheetEntry.new(consumer_id: id.to_i, beverage_id: beverage_id, amount: 1, payed: false)
         # Try to save.
         if !entry.save
           flash[:error] = 'Sorry, an error occured.'
