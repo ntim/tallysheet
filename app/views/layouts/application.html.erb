@@ -202,10 +202,11 @@
 		text-decoration: none;
       }
       
-      th .current {
+      th .sortable {
 		padding-right: 16px;
 		background-repeat: no-repeat;
 		background-position: right center;
+		background-image: url(<%= image_path('bullet_white.png') %>);
       }
 		
 	  th .asc {
@@ -214,6 +215,16 @@
 		
 	  th .desc {
 		background-image: url(<%= image_path('arrow_down.png') %>);
+	  }
+	  
+	  label.checkbox {
+	  	display: block;
+	  }
+	  
+	  label.checkbox input {
+		vertical-align: -2px;
+		margin: 5px;
+		margin-left: 0;
 	  }
 		      
     </style>

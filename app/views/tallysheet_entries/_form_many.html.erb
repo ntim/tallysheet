@@ -7,7 +7,10 @@
   
   <div class="field">
     <%= label_tag :consumer %><br>
-    <%= f.collection_check_boxes :consumer_ids, @consumers, :id, :name %>
+    <%= f.collection_check_boxes :consumer_ids, @consumers, :id, :name do |b|
+    	b.label(class: "checkbox") { b.check_box + b.text }
+    end
+    	%>
   </div>
 
   <p>The tallysheet of each customer will be incremented by one.</p>

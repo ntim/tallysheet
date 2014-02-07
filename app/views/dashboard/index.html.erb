@@ -3,9 +3,9 @@
   <thead>
     <tr>
       <th><%= sortable "name", "Consumer" %></th>
-      <th>Beverages</th>
-      <th>Paid</th>
-      <th>Debt</th>
+      <th><%= sortable_numeric "amount_of_beverages", "Beverages" %></th>
+      <th><%= sortable_numeric "amount_of_payed_beverages", "Paid" %></th>
+      <th><%= sortable_numeric "debt", "Debt" %></th>
       <th></th>
       <th></th>
       <th></th>
