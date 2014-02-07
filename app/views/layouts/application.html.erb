@@ -250,7 +250,13 @@
       <div id="content">
         <div id="header">
           <h1>The tallysheet</h1>
-          <h2>Welcome aboard!</h2>
+          <h2>
+          	<% if DateTime.now.to_date.friday? %>
+          		Welcome aboard today!
+          	<% else %>
+          		Come aboard next friday!
+          	<% end %>
+          	</h2>
         </div>
         <div id="yield">
 		  <% flash.each do |name, msg| -%>
