@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Date</th>
       <th>Consumer</th>
       <th>Beverage</th>
       <th>Amount</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @tallysheet_entries.each do |tallysheet_entry| %>
       <tr>
+        <td><%= tallysheet_entry.created_at.to_formatted_s(:short) %></td>
         <td><%= tallysheet_entry.consumer != nil ? tallysheet_entry.consumer.name : '-' %></td>
         <td><%= tallysheet_entry.beverage != nil ? tallysheet_entry.beverage.name : '-' %></td>
         <td><%= tallysheet_entry.amount %></td>
@@ -32,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Tallysheet entry', new_tallysheet_entry_path %>
+<%= link_to 'New tallysheet entry', new_tallysheet_entry_path %>
