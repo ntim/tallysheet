@@ -1,0 +1,37 @@
+<table>
+  <thead>
+    <tr>
+      <th><%= sortable "name", "Consumer" %></th>
+      <th><%= sortable_numeric "amount_of_beverages", "Beverages" %></th>
+      <th><%= sortable_numeric "amount_of_payed_beverages", "Paid" %></th>
+      <th><%= sortable_numeric "debt", "Debt" %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @consumers.each do |consumer| %>
+      <tr>
+        <td><%= consumer.name %></td>
+        <td><%= consumer.amount_of_beverages %></td>
+        <td><%= consumer.amount_of_payed_beverages %></td>
+        <td><%= style_debt consumer.debt %></td>
+        <td><%= link_to 'Show', consumer_path(consumer)%></td>
+        <td><%= link_to 'Pay', consumer_pay_path(consumer)%></td>
+        <td><%= link_to_if consumer.debt > 0, 'Remind', consumer_mail_debt_remainder_path(consumer), data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  
+  <tfoot>
+  	<th>Summary</th>
+  	<th><%= total_amount_of_beverages %></th>
+  	<th><%= total_amount_of_payed_beverages %></th>
+  	<th><%= style_debt total_debt %></th>
+  	<th></th>
+  	<th></th>
+  	<th></th>
+  </tfoot>
+</table>

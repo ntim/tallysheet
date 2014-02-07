@@ -31,4 +31,13 @@ class DashboardController < ApplicationController
     params[:direction] == "asc" ? 1 : -1
   end
 
+  def render_partial
+    refresh
+    render :json => {
+        :html => render_to_string({
+            :partial => params[:partial_name]
+        })
+    }
+  end
+
 end
