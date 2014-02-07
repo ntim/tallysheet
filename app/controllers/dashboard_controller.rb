@@ -5,9 +5,7 @@ class DashboardController < ApplicationController
     if sort_numeric_column != nil
       method_name = sort_numeric_column
       dir = sort_direction_numeric
-      if Consumer.respond_to? method_name
-        @consumers.sort_by{|e| dir * e.send(method_name)}
-      end
+      @consumers = @consumers.sort_by{|e| dir * e.send(method_name)}
     end
   end
 
