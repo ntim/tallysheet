@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  before_filter :authenticate, :only => [:admin]
   helper_method :sort_column, :sort_direction, :sort_numeric_column
   def index
     @consumers = Consumer.includes(:tallysheet_entries).order(sort_column + " " + sort_direction).all()
@@ -7,6 +8,9 @@ class DashboardController < ApplicationController
       dir = sort_direction_numeric
       @consumers = @consumers.sort_by{|e| dir * e.send(method_name)}
     end
+  end
+  
+  def admin
   end
 
   private

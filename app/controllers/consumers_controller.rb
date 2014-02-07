@@ -1,5 +1,6 @@
 class ConsumersController < ApplicationController
-  before_action :set_consumer, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate, :only => [:mail_debt_remainder, :pay, :edit, :update, :destroy]
+  before_action :set_consumer, :only => [:show, :edit, :update, :destroy]
   include ApplicationHelper
 
   # GET /consumers
@@ -13,6 +14,7 @@ class ConsumersController < ApplicationController
     if params[:amount] != nil
       if numeric?(params[:amount])
         @consumer.pay params[:amount].to_f
+        flash[:notice] = 'Successfully payed.'
         redirect_to @consumer
       else
         flash[:error] = "Amount has to be numeric."

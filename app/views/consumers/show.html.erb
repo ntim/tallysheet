@@ -39,7 +39,7 @@
   		<td colspan="3" style="text-align: right">Sum:</td>
   		<th ><%= "%.2f" % (@consumer.debt + @consumer.credit) %> €</th>
     </tfoot>
-  <table>
+  </table>
   <% else %>
   -
  <% end %>
@@ -48,4 +48,4 @@
 <%= link_to 'Edit', edit_consumer_path(@consumer) %> | 
 <%= link_to 'Pay', consumer_pay_path(@consumer) %> | 
 <%= link_to 'History', consumer_history_path(@consumer) %> | 
-<%= link_to 'Back', consumers_path %>
+<%= link_to 'Back', root_path %>
