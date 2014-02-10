@@ -14,6 +14,7 @@ Tallysheet::Application.routes.draw do
   
   get '/dashboard/admin' => 'dashboard#admin'
   get '/dashboard/render_partial'
+  get '/dashboard/cumulative'
   resources :dashboard
   root 'dashboard#index'
 

@@ -16,6 +16,22 @@ class DashboardController < ApplicationController
         })
     }
   end
+  
+  def cumulative
+    entries = TallysheetEntry.all
+    result = []
+    cum_sum = 0
+    cum_sum_payed = 0
+    entries.each do |e|
+      if e.payed
+        cum_sum_payed += e.amount
+      else
+        cum_sum += e.amount
+      end
+      result.push({:created_at => e.created_at, :cum_sum_payed => cum_sum_payed, :cum_sum => cum_sum})
+    end
+    render :json => result
+  end
 
   private
   

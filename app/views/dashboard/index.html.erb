@@ -1,5 +1,11 @@
 <h1>Summary</h1>
 
+<div id="cumulative_chart">
+	<%= render "cumulative_chart" %>
+</div>
+
+<br>
+
 <div id="summary_table_contents">
   <%= render "summary_table_contents" %>
 </div>
@@ -18,7 +24,8 @@ function updatePartial(name) {
 }
 
 function updateDashboard() {
-	updatePartial("summary_table_contents")
+	// updatePartial("cumulative_chart");
+	updatePartial("summary_table_contents");
 }
 </script>
 
