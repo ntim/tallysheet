@@ -8,7 +8,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50},
 var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S.%LZ").parse;
 
 var x = d3.time.scale()
-    .range([0, width]);
+    .rangeRound([0, width]);
 
 var y = d3.scale.linear()
     .range([height, 0]);
@@ -17,8 +17,11 @@ var color = d3.scale.category20();
 
 var xAxis = d3.svg.axis()
     .scale(x)
-    .orient("bottom")
-    .tickFormat(d3.time.format("%a, KW%W"));
+    .orient('bottom')
+    .ticks(d3.time.days, 1)
+    .tickFormat(d3.time.format('%b, %a %d'))
+    .tickSize(0)
+    .tickPadding(8);
 
 var yAxis = d3.svg.axis()
     .scale(y)
@@ -49,7 +52,6 @@ d3.json("/dashboard/cumulative.json", function(error, data) {
 
   data.forEach(function(d) {
     d.date = parseDate(d.created_at);
-    console.log(d.date);
   });
 
   var browsers = stack(color.domain().map(function(name) {
@@ -88,7 +90,13 @@ d3.json("/dashboard/cumulative.json", function(error, data) {
 
   svg.append("g")
       .attr("class", "y axis")
-      .call(yAxis);
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Amount");
 });
 
 </script>
