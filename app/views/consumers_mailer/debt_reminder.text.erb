@@ -1,5 +1,8 @@
 Hello <%= @consumer.name%>,
 
 this is a friendly reminder that your current debt on the tallysheet is <%= @consumer.debt %> €. Please pay as soon as possible.
+
+You can view your current tallysheet entries with debt and credit under:
+<%=consumer_url @consumer%>
  
 Thanks for your cooperation and have a great day!

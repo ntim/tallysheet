@@ -1,5 +1,11 @@
 <h1>Summary</h1>
 
+<%= link_to 'New consumer', new_consumer_path %> | 
+<%= link_to 'New tallysheet entry', new_tallysheet_entry_path %> | 
+<%= link_to "Many new tallysheet entries", controller: "tallysheet_entries", action: "new_many" %>
+
+<br>
+
 <div id="cumulative_chart">
 	<%= render "cumulative_chart" %>
 </div>
@@ -25,12 +31,6 @@ function updatePartial(name) {
 
 function updateDashboard() {
 	// updatePartial("cumulative_chart");
-	updatePartial("summary_table_contents");
+	// updatePartial("summary_table_contents");
 }
 </script>
-
-<br>
-
-<%= link_to 'New consumer', new_consumer_path %> | 
-<%= link_to 'New tallysheet entry', new_tallysheet_entry_path %> | 
-<%= link_to "Many new tallysheet entries", controller: "tallysheet_entries", action: "new_many" %>
