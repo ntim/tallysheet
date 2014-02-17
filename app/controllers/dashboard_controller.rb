@@ -18,7 +18,7 @@ class DashboardController < ApplicationController
   end
   
   def cumulative
-    entries = TallysheetEntry.all
+    entries = TallysheetEntry.last(256)
     result = []
     cum_sum = 0
     cum_sum_payed = 0
