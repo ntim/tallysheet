@@ -18,7 +18,7 @@ class DashboardController < ApplicationController
   end
   
   def cumulative
-    entries = TallysheetEntry.last(256)
+    entries = TallysheetEntry.includes(:beverage).last(256)
     result = []
     cum_sum = 0
     cum_sum_payed = 0
@@ -36,7 +36,7 @@ class DashboardController < ApplicationController
   private
   
   def set_consumers
-    @consumers = Consumer.includes(:tallysheet_entries).order(sort_column + " " + sort_direction).all()
+    @consumers = Consumer.includes(tallysheet_entries: [:beverage, :consumer]).order(sort_column + " " + sort_direction).load()
     if sort_numeric_column != nil
       method_name = sort_numeric_column
       dir = sort_direction_numeric
