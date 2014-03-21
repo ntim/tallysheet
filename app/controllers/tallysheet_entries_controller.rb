@@ -5,8 +5,8 @@ class TallysheetEntriesController < ApplicationController
   include ApplicationHelper
   
   def init
-    @consumers = Consumer.all
-    @beverages = Beverage.all
+    @consumers = Consumer.order("name ASC").all
+    @beverages = Beverage.order("name ASC").all
   end
 
   # GET /tallysheet_entries
