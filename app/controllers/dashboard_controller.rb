@@ -45,7 +45,7 @@ class DashboardController < ApplicationController
   end
 
   def sort_column
-    Consumer.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    Consumer.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
 
   def sort_numeric_column
