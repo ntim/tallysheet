@@ -1,5 +1,5 @@
 class ConsumersMailer < ActionMailer::Base
-  default from: "Tallysheet <no-reply@lx3a07>"
+  default from: "Tallysheet <no-reply@lx3afamous02>"
   
   def debt_reminder(consumer)
     @consumer = consumer
