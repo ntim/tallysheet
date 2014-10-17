@@ -1,25 +1,39 @@
-<%= form_for(@beverage) do |f| %>
-  <% if @beverage.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@beverage.errors.count, "error") %> prohibited this beverage from being saved:</h2>
+<%= form_for(@beverage, html: {class: "form-horizontal"}) do |f| %>
+<% if @beverage.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@beverage.errors.count, "error") %> prohibited this beverage from being saved:</h2>
 
-      <ul>
-      <% @beverage.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<ul>
+		<% @beverage.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %> € per bottle
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="form-group">
+	<%= f.label :name, class: "col-sm-2 control-label" %>
+	<div class="col-sm-10">
+		<%= f.text_field :name, class: "form-control" %>
+	</div>
+</div>
+
+<div class="form-group">
+	<%= f.label :price, class: "col-sm-2 control-label" %>
+	<div class="col-sm-10">
+		<div class="input-group">
+			<%= f.text_field :price, class: "form-control" %>
+			<span class="input-group-addon">&euro;</span>
+		</div>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+		<%= f.submit class: "btn btn-primary" %>
+	</div>
+</div>
+
 <% end %>

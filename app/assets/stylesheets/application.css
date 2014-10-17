@@ -13,216 +13,8 @@
  */
 
 body {
-	margin: 0;
-	margin-bottom: 25px;
-	padding: 0;
-	background-color: #dbdee3;
-	font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
-	font-size: 12px;
-	color: #333;
-}
-
-p, ol, ul, td {
-	font-family: verdana, arial, helvetica, sans-serif;
-	font-size: 1em;
-	line-height: 18px;
-}
-
-h1 {
-	font-size: 2em;
-	color: #000;
-}
-
-a, a:visited {
-	color: #0066ff
-}
-a:hover {
-	background-color: #0066ff;
-	color: white;
-	text-decoration: none;
-}
-
-#page {
-	background-color: #dbdee3;
-	width: 1000px;
-	margin: 0;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#content {
-	float: left;
-	background-color: white;
-	border: 3px solid #6f7c91;
-	border-top: none;
-	padding: 25px;
-	width: 750px;
-}
-
-#sidebar {
-	float: right;
-	width: 175px;
-}
-
-#footer {
-	clear: both;
-	text-align: right;
-	margin-right: 190px;
-	padding-top: 15px;
-}
-
-#footer span, #footer a, #footer a:visited, #footer a:hover {
-	color: #6f7c91;
-	background: none;
-	text-decoration: none;
-	/*opacity: 0.25*/
-}
-
-#header, #about, #yield {
-	padding-left: 75px;
-	padding-right: 30px;
-}
-
-#header {
-	background-image: url('logo.png');
-	background-repeat: no-repeat;
-	background-position: top left;
-	height: 64px;
-}
-#header h1, #header h2 {
-	margin-top: 0
-}
-#header h2 {
-	color: #888;
-	font-weight: normal;
-	font-size: 1.5em;
-}
-
-#about h3 {
-	margin: 0;
-	margin-bottom: 10px;
-	font-size: 1em;
-}
-
-#about-content {
-	background-color: #ffd;
-	border: 1px solid #fc0;
-	margin-left: -55px;
-	margin-right: -10px;
-}
-#about-content table {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-size: 0.8em;
-	border-collapse: collapse;
-}
-#about-content td {
-	padding: 10px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-}
-#about-content td.name {
-	color: #555
-}
-#about-content td.value {
-	color: #000
-}
-
-#about-content ul {
-	padding: 0;
-	list-style-type: none;
-}
-
-#about-content.failure {
-	background-color: #fcc;
-	border: 1px solid #f00;
-}
-#about-content.failure p {
-	margin: 0;
-	padding: 10px;
-}
-
-#yield {
-	border-top: 1px solid #ccc;
-	margin-top: 25px;
-	padding-top: 15px;
-}
-#yield h1 {
-	margin-left: 0;
-	margin-top: 0;
-	font-size: 1.5em;
-}
-#yield h2 {
-	margin: 0;
-	font-size: 1.25em;
-	font-weight: normal;
-	color: #333;
-	margin-bottom: 25px;
-}
-
-#yield table {
-	width: 100%;
-	border-collapse: collapse;
-	border: none;
-}
-
-#yield th {
-	border: 0.25em white solid;
-	background-color: #d5e5ff;
-	text-align: left;
-	padding: 0.5em;
-}
-
-#yield td {
-	border: 0.25em white solid;
-	padding: 0.5em;
-}
-
-#yield th:first-child, #yield td:first-child {
-	border-left: none;
-}
-
-#yield th:last-child, #yield td:last-child {
-	border-right: none;
-}
-
-#yield tr:nth-child(even) {
-	background-color: #dbdee3;
-}
-
-#sidebar ul {
-	margin-left: 0;
-	padding-left: 0;
-}
-#sidebar ul h3 {
-	margin-top: 25px;
-	font-size: 1.5em;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #ccc;
-}
-#sidebar li {
-	list-style-type: none;
-}
-#sidebar ul.links li {
-	margin-bottom: 5px;
-}
-
-.filename {
-	font-style: italic;
-}
-
-#notice {
-	margin-bottom: 1em;
-}
-
-#notice .error {
-	color: red
-}
-
-th a, th a:hover, th a:visited {
-	color: black;
-	background-color: inherit !important;
-	text-decoration: none;
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
 
 th .sortable {
@@ -241,25 +33,18 @@ th .desc {
 }
 
 label.checkbox {
-	display: block;
+	font-weight: normal;
+	margin-left: 20px;
 }
 
-label.checkbox input {
-	vertical-align: -2px;
-	margin: 5px;
-	margin-left: 0;
+.alert-notice {
+	color: #3C763D;
+	background-color: #DFF0D8;
+	border-color: #D6E9C6;
 }
 
-.axis path, .axis line {
-	fill: none;
-	stroke: #000;
-	shape-rendering: crispEdges;
-}
-
-.browser text {
-	text-anchor: end;
-}
-
-.gray {
-	color: #aaa;
+.alert-error {
+	color: #A94442;
+	background-color: #F2DEDE;
+	border-color: #EBCCD1;
 }

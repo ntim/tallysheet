@@ -1,8 +1,23 @@
-<div id="chart"></div>
+<div class="container">
+	<div id="chart"></div>
+</div>
+
+<style>
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.browser text {
+	text-anchor: end;
+}
+</style>
+
 <script>
 
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 645 - margin.left - margin.right,
+var margin = {top: 20, right: 0, bottom: 30, left: 50},
+    width = 1140 - margin.left - margin.right,
     height = 200 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format.iso.parse;
@@ -18,7 +33,7 @@ var color = d3.scale.category20();
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient('bottom')
-    .ticks(d3.time.weeks, 2)
+    .ticks(d3.time.weeks, 1)
     .tickFormat(d3.time.format('%b, %a %d'))
     .tickSize(0)
     .tickPadding(8);
@@ -100,3 +115,4 @@ d3.json("/dashboard/cumulative.json", function(error, data) {
 });
 
 </script>
+

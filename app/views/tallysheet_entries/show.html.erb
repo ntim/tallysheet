@@ -1,29 +1,53 @@
 <h1>Tallysheet entry</h1>
 
-<p>
-  <strong>Consumer:</strong>
-  <%= @tallysheet_entry.consumer.name %>
-</p>
+<form class="form-horizontal" role="form">
 
-<p>
-  <strong>Beverage:</strong>
-  <%= @tallysheet_entry.beverage.name %>
-</p>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Consumer</label>
+		<div class="col-sm-10">
+			<input value="<%= @tallysheet_entry.consumer.name %>" type="text" class="form-control" disabled/>
+		</div>
+	</div>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @tallysheet_entry.amount %>
-</p>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Beverage</label>
+		<div class="col-sm-10">
+			<input value="<%= @tallysheet_entry.beverage.name %>" type="text" class="form-control" disabled/>
+		</div>
+	</div>
 
-<p>
-  <strong>Total price:</strong>
-  <%= @tallysheet_entry.price %> €
-</p>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Amount</label>
+		<div class="col-sm-10">
+			<input value="<%= @tallysheet_entry.amount %>" type="text" class="form-control" disabled/>
+		</div>
+	</div>
 
-<p>
-  <strong>Payed:</strong>
-  <%= @tallysheet_entry.payed %>
-</p>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Price</label>
+		<div class="col-sm-10">
+			<div class="input-group">
+				<input value="<%= "%.2f" % @tallysheet_entry.price %>" name="saldo" type="text" class="form-control" disabled/>
+				<span class="input-group-addon">&euro;</span>
+			</div>
+		</div>
+	</div>
 
-<%= link_to 'Edit', edit_tallysheet_entry_path(@tallysheet_entry) %> |
-<%= link_to 'Back', tallysheet_entries_path %>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Payed</label>
+		<div class="col-sm-10">
+			<input value="<%= @tallysheet_entry.payed %>" type="text" class="form-control" disabled/>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<%= link_to 'Edit', edit_tallysheet_entry_path(@tallysheet_entry), class: "btn btn-primary" %>
+		</div>
+	</div>
+
+</form>
+
+<hr>
+
+<%= link_to 'Back', tallysheet_entries_path, class: "btn btn-default" %>

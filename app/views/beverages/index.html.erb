@@ -1,12 +1,10 @@
 <h1>Listing beverages</h1>
 
-<table>
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Name</th>
       <th>Price</th>
-      <th></th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -16,14 +14,14 @@
       <tr>
         <td><%= beverage.name %></td>
         <td><%= "%.2f" % beverage.price %> €</td>
-        <td><%= link_to 'Show', beverage %></td>
-        <td><%= link_to 'Edit', edit_beverage_path(beverage) %></td>
-        <td><%= link_to 'Destroy', beverage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', beverage, class: "btn btn-default btn-xs" %>
+        <%= link_to 'Edit', edit_beverage_path(beverage), class: "btn btn-primary btn-xs" %>
+        <%= link_to 'Destroy', beverage, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<hr>
 
-<%= link_to 'New Beverage', new_beverage_path %>
+<%= link_to 'New Beverage', new_beverage_path, class: "btn btn-primary" %>

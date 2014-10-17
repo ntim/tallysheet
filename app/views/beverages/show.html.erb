@@ -1,9 +1,32 @@
-<h1>Beverage <%= @beverage.name %></h1>
+<h1>Beverage</h1>
 
-<p>
-  <strong>Price:</strong>
-  <%= "%.2f" % @beverage.price %> €
-</p>
+<form class="form-horizontal" role="form">
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-10">
+			<input value="<%= @beverage.name %>" name="name" type="text" class="form-control" disabled/>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Price</label>
+		<div class="col-sm-10">
+			<div class="input-group">
+				<input value="<%= "%.2f" % @beverage.price %>" name="price" type="text" class="form-control" disabled/>
+				<span class="input-group-addon">&euro;</span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<%= link_to 'Edit', edit_beverage_path(@beverage), class: "btn btn-primary" %>
+		</div>
+	</div>
+	
+</form>
 
-<%= link_to 'Edit', edit_beverage_path(@beverage) %> |
-<%= link_to 'Back', beverages_path %>
+<hr>
+
+<%= link_to 'Back', beverages_path, class: "btn btn-default" %>

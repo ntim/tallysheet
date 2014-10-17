@@ -1,36 +1,35 @@
-<h1>Summary</h1>
+<% content_for :jumbotron, render("cumulative_chart") %>
 
-<%= link_to 'New consumer', new_consumer_path %> | 
-<%= link_to 'New tallysheet entry', new_tallysheet_entry_path %> | 
-<%= link_to "Many new tallysheet entries", controller: "tallysheet_entries", action: "new_many" %>
-
-<br>
-
-<div id="cumulative_chart">
-	<%= render "cumulative_chart" %>
-</div>
-
-<br>
-
-<div id="summary_table_contents">
-  <%= render "summary_table_contents" %>
-</div>
-
-<script>	
-$(document).ready(function(){
-    	setInterval(updateDashboard, 3000);
-});
-
-function updatePartial(name) {
-	var query = window.location.search.slice(1);
-	url = "<%= url_for :controller => "dashboard", :action => "render_partial" %>";
-	$.get(url + "?partial_name=" + name + "&" + query, function(data) {
-		$("#" + name).html(data["html"]);
-	});
-}
-
-function updateDashboard() {
-	// updatePartial("cumulative_chart");
-	// updatePartial("summary_table_contents");
-}
-</script>
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th><%= sortable "name", "Consumer" %></th>
+			<th><%= sortable_numeric "amount_of_beverages", "Beverages" %></th>
+			<th><%= sortable_numeric "amount_of_payed_beverages", "Paid" %></th>
+			<th><%= sortable_numeric "debt", "Debt" %></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @consumers.each do |consumer| %>
+		<tr>
+			<td><%= consumer.name %></td>
+			<td><%= consumer.amount_of_beverages %></td>
+			<td><%= consumer.amount_of_paid_beverages %></td>
+			<td><%= style_debt consumer.debt %></td>
+			<td> <%= link_to 'Show', consumer_path(consumer), class: "btn btn-default btn-xs" %>
+			<%= link_to 'Pay', consumer_pay_path(consumer), class: "btn btn-success btn-xs" %>
+			<% if consumer.debt > 5.00 %>
+			<%= link_to 'Remind', consumer_mail_debt_remainder_path(consumer), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+			<% end %> </td>
+		</tr>
+		<% end %>
+	</tbody>
+	<tfoot>
+		<th>Summary</th>
+		<th><%= total_amount_of_beverages %></th>
+		<th><%= total_amount_of_paid_beverages %></th>
+		<th><%= style_debt total_debt %></th>
+		<th></th>
+	</tfoot>
+</table>

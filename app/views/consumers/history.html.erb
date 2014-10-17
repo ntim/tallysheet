@@ -1,25 +1,28 @@
 <h1>History of <%= @consumer.name %></h1>
-<p>
-  <% if @consumer.tallysheet_entries.length > 0 %>
-  <table>
-  	<thead>
-	  	<th>Date</th>
-	  	<th>Name</th>
-	  	<th>Amount</th>
-	  	<th>Price</th>
-  	</thead>
-  	<% @consumer.tallysheet_entries.each do |e| %>
-  	<tr>
-  		<td><%= e.created_at.to_formatted_s(:short) %></td>
-  		<td><%= e.beverage.name %></td>
-  		<td><%= e.amount %></td>
-  		<td><%= "%.2f" % e.price %> €</td>
-  	</tr>
-  	<% end %>
-  </table>
-  <% else %>
-  -
- <% end %>
-</p>
 
-<%= link_to 'Back', consumer_path(@consumer) %>
+<% if @consumer.tallysheet_entries.length > 0 %>
+<table class="table table-striped table-hover">
+	<thead>
+		<th>Date</th>
+		<th>Name</th>
+		<th>Amount</th>
+		<th>Price</th>
+	</thead>
+	<% @consumer.tallysheet_entries.each do |e| %>
+	<tr>
+		<td><%= e.created_at.to_formatted_s(:short) %></td>
+		<td><%= e.beverage.name %></td>
+		<td><%= e.amount %></td>
+		<td><%= "%.2f" % e.price %> €</td>
+	</tr>
+	<% end %>
+</table>
+<% else %>
+<p>
+	No entries.
+</p>
+<% end %>
+
+<hr>
+
+<%= link_to 'Back', consumer_path(@consumer), class: "btn btn-default" %>

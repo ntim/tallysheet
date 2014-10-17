@@ -6,17 +6,6 @@ class DashboardController < ApplicationController
   def index
   end
   
-  def admin
-  end
-
-  def render_partial
-    render :json => {
-        :html => render_to_string({
-            :partial => params[:partial_name]
-        })
-    }
-  end
-  
   def cumulative
     entries = TallysheetEntry.includes(:beverage).last(128)
     result = []
