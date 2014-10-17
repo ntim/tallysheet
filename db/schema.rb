@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206111219) do
+ActiveRecord::Schema.define(version: 20141017111918) do
 
   create_table "beverages", force: true do |t|
     t.text     "name"
@@ -23,9 +23,12 @@ ActiveRecord::Schema.define(version: 20140206111219) do
   create_table "consumers", force: true do |t|
     t.text     "name"
     t.text     "email"
-    t.float    "credit",     default: 0.0
+    t.float    "credit",                   default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "amount_of_beverages",      default: 0
+    t.integer  "amount_of_paid_beverages", default: 0
+    t.float    "debt",                     default: 0.0
   end
 
   create_table "tallysheet_entries", force: true do |t|
