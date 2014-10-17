@@ -17,11 +17,11 @@ module DashboardHelper
     total
   end
   
-  def total_amount_of_payed_beverages
+  def total_amount_of_paid_beverages
     consumers = Consumer.all
     total = 0
     consumers.each do |c|
-      total += c.amount_of_payed_beverages
+      total += c.amount_of_paid_beverages
     end
     total
   end
