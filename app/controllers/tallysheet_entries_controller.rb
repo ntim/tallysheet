@@ -36,8 +36,13 @@ class TallysheetEntriesController < ApplicationController
   def create_many
     ids = params[:tallysheet_entries][:consumer_ids]
     beverage_id = params[:tallysheet_entries][:beverage_id].to_i
+    #
+    if params[:tallysheet_entries][:beverage_id] == ""
+      flash[:error] = 'Please select a beverage.'
+      return redirect_to :back
+    end
     # Check if there is at least one entry.
-    if ids.length < 0 || (ids.length == 1 && !numeric?(ids[1]))
+    if ids.length < 0 || (ids.length == 1 && !numeric?(ids[0]))
       flash[:error] = 'Please select at least one consumer.'
       return redirect_to :back
     end

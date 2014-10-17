@@ -14,13 +14,13 @@ class TallysheetEntry < ActiveRecord::Base
   end
   
   after_create do
-    self.consumer.dept += price
+    self.consumer.debt += self.price
     self.consumer.amount_of_beverages += self.amount
     self.consumer.save  
   end
   
   before_destroy do
-    self.consumer.dept -= price
+    self.consumer.debt -= self.price
     self.consumer.amount_of_beverages -= self.amount
     self.consumer.save    
   end
