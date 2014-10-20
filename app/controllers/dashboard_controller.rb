@@ -6,17 +6,23 @@ class DashboardController < ApplicationController
   end
 
   def cumulative
-    entries = TallysheetEntry.includes(:beverage).last(128)
+    beverages = Beverage.all
     result = []
-    cum_sum = 0
-    cum_sum_payed = 0
-    entries.each do |e|
-      if e.payed
-      cum_sum_payed += e.amount
-      else
-      cum_sum += e.amount
+    beverages.each do |b|
+      values = []
+      cum_sum = 0
+      entries = TallysheetEntry.where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.month)).order("id ASC")
+      entries.each do |e|
+        cum_sum += e.amount
+        if values.size > 0 && values[-1][:time] == e.created_at.to_i
+          values[-1][:cum_sum] = cum_sum
+        else
+          values.push({time: e.created_at.to_i, cum_sum: cum_sum})
+        end
       end
-      result.push({:created_at => e.created_at, :cum_sum_payed => cum_sum_payed, :cum_sum => cum_sum})
+      if entries.size > 0
+        result.push({name: b.name, values: values})
+      end
     end
     render :json => result
   end

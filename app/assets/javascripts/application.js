@@ -15,3 +15,15 @@
 //= require turbolinks
 //= require d3.v3.min
 //= require_tree .
+
+Array.prototype.unique = function() {
+    var a = [],
+        l = this.length;
+    for (var i = 0; i < l; i++) {
+        for (var j = i + 1; j < l; j++)
+            if (this[i] === this[j])
+                j = ++i;
+        a.push(this[i]);
+    }
+    return a;
+};
