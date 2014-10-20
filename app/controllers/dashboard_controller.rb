@@ -2,10 +2,9 @@ class DashboardController < ApplicationController
   before_filter :authenticate, :only => [:admin]
   before_action :set_consumers, :only => [:index, :render_partial]
   helper_method :sort_column, :sort_direction, :sort_numeric_column
-  
   def index
   end
-  
+
   def cumulative
     entries = TallysheetEntry.includes(:beverage).last(128)
     result = []
@@ -13,9 +12,9 @@ class DashboardController < ApplicationController
     cum_sum_payed = 0
     entries.each do |e|
       if e.payed
-        cum_sum_payed += e.amount
+      cum_sum_payed += e.amount
       else
-        cum_sum += e.amount
+      cum_sum += e.amount
       end
       result.push({:created_at => e.created_at, :cum_sum_payed => cum_sum_payed, :cum_sum => cum_sum})
     end
@@ -23,18 +22,20 @@ class DashboardController < ApplicationController
   end
 
   private
-  
+
   def set_consumers
-    @consumers = Consumer.includes(tallysheet_entries: [:beverage, :consumer]).order(sort_column + " " + sort_direction).load()
     if sort_numeric_column != nil
+      @consumers = Consumer.includes(tallysheet_entries: [:beverage, :consumer]).load()
       method_name = sort_numeric_column
       dir = sort_direction_numeric
       @consumers = @consumers.sort_by{|e| dir * e.send(method_name)}
+    else
+      @consumers = Consumer.includes(tallysheet_entries: [:beverage, :consumer]).order(sort_column + " " + sort_direction).load()
     end
   end
 
   def sort_column
-    Consumer.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    Consumer.column_names.include?(params[:sort]) ? params[:sort] : params[:sort_numeric] != nil ? "" : "name"
   end
 
   def sort_numeric_column

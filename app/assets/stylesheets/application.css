@@ -17,21 +17,6 @@ body {
 	padding-bottom: 20px;
 }
 
-th .sortable {
-	padding-right: 16px;
-	background-repeat: no-repeat;
-	background-position: right center;
-	background-image: url('bullet_white.png');
-}
-
-th .asc {
-	background-image: url('arrow_up.png');
-}
-
-th .desc {
-	background-image: url('arrow_down.png');
-}
-
 label.checkbox {
 	font-weight: normal;
 	margin-left: 20px;
