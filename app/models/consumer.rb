@@ -28,15 +28,17 @@ class Consumer < ActiveRecord::Base
         amount += e.price
       end
     end
-    amount -= credit
+    amount -= self.credit
     amount
   end
   
   def pay amount
     self.credit = amount - self.derive_debt
     self.tallysheet_entries.each do |e|
-      e.payed = true
-      e.save
+      # Skip tallysheet entry callback.
+      if !e.payed
+        e.update_columns(:payed => true)
+      end
     end
     self.debt = -self.credit
     self.amount_of_paid_beverages += self.amount_of_beverages
@@ -45,6 +47,7 @@ class Consumer < ActiveRecord::Base
   end
   
   def update_derived
+    Rails.logger.info "update_derived for consumer " + self.id.to_s
     self.debt = self.derive_debt
     self.amount_of_beverages = self.derive_amount_of_beverages
     self.amount_of_paid_beverages = self.derive_amount_of_paid_beverages
