@@ -5,7 +5,7 @@ class TallysheetEntriesController < ApplicationController
   include ApplicationHelper
   
   def init
-    @consumers = Consumer.order("name ASC").all
+    @consumers = Consumer.order("name ASC").where(:visible => true).all
     @beverages = Beverage.order("name ASC").all
   end
 

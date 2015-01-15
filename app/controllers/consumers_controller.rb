@@ -95,6 +95,6 @@ class ConsumersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def consumer_params
-      params.require(:consumer).permit(:name, :email, :credit)
+      params.require(:consumer).permit(:name, :email, :credit, :visible)
     end
 end

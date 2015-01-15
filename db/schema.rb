@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017111918) do
+ActiveRecord::Schema.define(version: 20150115173651) do
 
   create_table "beverages", force: true do |t|
     t.text     "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20141017111918) do
     t.integer  "amount_of_beverages",      default: 0
     t.integer  "amount_of_paid_beverages", default: 0
     t.float    "debt",                     default: 0.0
+    t.boolean  "visible",                  default: true
   end
 
   create_table "tallysheet_entries", force: true do |t|
