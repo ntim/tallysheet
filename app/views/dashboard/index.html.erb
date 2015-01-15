@@ -11,10 +11,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% num_hidden = 0 %>
-		<% @consumers.each do |consumer| %>
-		<% if consumer.visible %>
-		<tr>
+	<% num_hidden = 0 %>
+	<% @consumers.each do |consumer| %>
+		<tr <% if !consumer.visible %>class="collapse warning hidden-customer"<% end %>>
 			<td><%= consumer.name %></td>
 			<td><%= consumer.amount_of_beverages %></td>
 			<td><%= consumer.amount_of_paid_beverages %></td>
@@ -25,15 +24,17 @@
 			<%= link_to 'Remind', consumer_mail_debt_remainder_path(consumer), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
 			<% end %> </td>
 		</tr>
-		<% else %>
+		<% if !consumer.visible %>
 			<% num_hidden += 1 %>
 		<% end %>
-		<% end %>
-		<% if num_hidden > 0 %>
+	<% end %>
+	<% if num_hidden > 0 %>
 		<tr>
-			<td colspan="5"><span class="text-muted"><%= num_hidden %> hidden ...</span></td>
+			<td colspan="5"><a href="#" onclick="$('.hidden-customer').collapse('toggle'); return false;" class="text-muted">
+				<%= num_hidden %> hidden ...
+			</a></td>
 		</tr>
-		<% end %>
+	<% end %>
 	</tbody>
 	<tfoot>
 		<th>Summary</th>
