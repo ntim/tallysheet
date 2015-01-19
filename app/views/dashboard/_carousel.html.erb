@@ -3,17 +3,26 @@
 		position: relative;
 		z-index: 9;
 	}
-
 	.carousel-control, .carousel-control.left, .carousel-control.right {
 		background-image: none;
 	}
-
 	.carousel .item {
 		height: 200px;
+	}
+	.carousel-indicators {
+		bottom: -36px;
+	}
+	.carousel-indicators li {
+		border-color: #777;
 	}
 </style>
 
 <div id="chart-carousel" class="carousel slide" data-interval="false">
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#chart-carousel" data-slide-to="0" class="active"></li>
+		<li data-target="#chart-carousel" data-slide-to="1"></li>
+	</ol>
 	<!-- Wrapper for slides -->
 	<div class="carousel-inner" role="listbox">
 		<div class="item active">
@@ -27,7 +36,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- Controls -->
+	<!-- Controls 
 	<a class="left carousel-control" href="#chart-carousel" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a>
 	<a class="right carousel-control" href="#chart-carousel" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
+	-->	
 </div>

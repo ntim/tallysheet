@@ -83,7 +83,7 @@ function weekly_chart() {
 	            while (idx < d.values.length - 1 && d.values[idx + 1].time <= x) {
 	                idx += 1;
 	            }
-	            if (d.values[d.values.length -1].time < x) {
+	            if (d.values[idx].time != x) {
 		            return {
 		                x: new Date(1000 * x),
 		                y: 0
