@@ -1,4 +1,4 @@
-<div id="cumulative_chart"></div>
+<div id="weekly_chart"></div>
 
 <style>
 	.axis path, .axis line {
@@ -17,7 +17,7 @@
 </style>
 
 <script>
-function cumulative_chart() {
+function weekly_chart() {
 	var margin = {
 	    top: 20,
 	    right: 0,
@@ -33,8 +33,8 @@ function cumulative_chart() {
 	
 	var color = d3.scale.category20();
 	
-	var xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(d3.time.days, 3)
-	    .tickFormat(d3.time.format('%b, %a %d')).tickSize(0).tickPadding(8);
+	var xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(d3.time.weeks, 1)
+	    .tickFormat(d3.time.format('%W')).tickSize(0).tickPadding(8);
 	
 	var yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(d3.format("0d"));
 	
@@ -54,13 +54,13 @@ function cumulative_chart() {
 	        return d.values;
 	    });
 	
-	var svg = d3.select("#cumulative_chart").append("svg")
+	var svg = d3.select("#weekly_chart").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	    .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
-	d3.json("/dashboard/cumulative.json", function(error, data) {
+	d3.json("/dashboard/weekly.json", function(error, data) {
 	
 	    color.domain(data.map(function(d) {
 	        return d.name;
@@ -83,9 +83,15 @@ function cumulative_chart() {
 	            while (idx < d.values.length - 1 && d.values[idx + 1].time <= x) {
 	                idx += 1;
 	            }
+	            if (d.values[d.values.length -1].time < x) {
+		            return {
+		                x: new Date(1000 * x),
+		                y: 0
+		            };
+	            }
 	            return {
 	                x: new Date(1000 * x),
-	                y: d.values[idx].cum_sum
+	                y: d.values[idx].amount
 	            };
 	        });
 	        return {
@@ -98,9 +104,14 @@ function cumulative_chart() {
 	    x.domain(d3.extent(x_domain).map(function(d) {
 	        return new Date(1000 * d);
 	    }));
-	    y.domain([0, d3.sum(data, function(d) {
-	        return d.values[d.values.length - 1].y;
-	    })]);
+	    
+	    var y_max = 0;
+	    for(var i=0;i < data[0].values.length; i++) {
+	    	y_max = Math.max(y_max, d3.sum(data, function(d) {
+	    		return d.values[i].y;
+	    	}));
+	    }
+	    y.domain([0, y_max]);
 	
 	    // Stack the data.
 	    var browser = svg.selectAll(".browser")
@@ -128,6 +139,12 @@ function cumulative_chart() {
 	    svg.append("g")
 	        .attr("class", "y axis")
 	        .call(yAxis);
+	        
+	    svg.append("text")
+	        .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom) + ")")
+	        .style("text-anchor", "middle")
+	        .attr("fill", "#777")
+	        .text("week of the year");
 		        
 	    svg.append("text")
 	        .attr("transform", "rotate(-90)")
@@ -136,16 +153,15 @@ function cumulative_chart() {
 	        .attr("dy", "1em")
 	        .attr("fill", "#777")
 	        .style("text-anchor", "middle")
-	        .text("cumulative amount");
+	        .text("amount / week");
 	
 	    svg.append("g")
 	        .attr("class", "legend")
 	        .attr("transform", "translate(" + margin.left + ",10)")
 	        .style("font-size", "14px")
 	        .call(d3.legend);
-	
 	});
 }
-cumulative_chart();
+weekly_chart();
 </script>
 

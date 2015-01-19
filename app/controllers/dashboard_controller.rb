@@ -26,6 +26,21 @@ class DashboardController < ApplicationController
     end
     render :json => result
   end
+  
+  def weekly
+    beverages = Beverage.all
+    result = []
+    beverages.each do |b|
+      entries = TallysheetEntry.select("strftime(\"%Y-%W\", created_at) as week, sum(amount) as total_amount")
+          .where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.year)).group("strftime(\"%Y-%W\", created_at)")
+      values = []
+      entries.each do |e|
+        values.push({time: DateTime.strptime(e.week, '%Y-%W').to_i, amount: e.total_amount})
+      end
+      result.push({name: b.name, values: values})
+    end
+    render :json => result
+  end
 
   private
 

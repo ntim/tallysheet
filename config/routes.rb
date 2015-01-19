@@ -13,6 +13,7 @@ Tallysheet::Application.routes.draw do
   end
   
   get '/dashboard/cumulative'
+  get '/dashboard/weekly'
   resources :dashboard
   root 'dashboard#index'
 
