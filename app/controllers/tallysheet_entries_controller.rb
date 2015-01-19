@@ -5,7 +5,7 @@ class TallysheetEntriesController < ApplicationController
   include ApplicationHelper
   
   def init
-    @consumers = Consumer.order("name ASC").where(:visible => true).all
+    @consumers = Consumer.order("name ASC").all
     @beverages = Beverage.order("name ASC").all
   end
 
@@ -30,6 +30,8 @@ class TallysheetEntriesController < ApplicationController
   end
   
   def new_many
+    # Only visible consumers here.
+    @consumers = Consumer.order("name ASC").where(:visible => true).all
     @tallysheet_entry = TallysheetEntry.new
   end
   
