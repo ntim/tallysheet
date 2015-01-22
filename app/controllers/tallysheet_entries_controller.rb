@@ -1,5 +1,5 @@
 class TallysheetEntriesController < ApplicationController
-  before_filter :authenticate, :only => [:edit, :update, :destroy]
+  before_filter :authenticate, :only => [:edit, :update, :destroy, :index]
   before_action :set_tallysheet_entry, :only => [:show, :edit, :update, :destroy]
   before_action :init
   include ApplicationHelper
@@ -14,6 +14,10 @@ class TallysheetEntriesController < ApplicationController
   def index
     @tallysheet_entries = TallysheetEntry.all
   end
+  
+  def latest 
+    @tallysheet_entries = TallysheetEntry.order("id DESC").limit(12).all
+  end    
 
   # GET /tallysheet_entries/1
   # GET /tallysheet_entries/1.json

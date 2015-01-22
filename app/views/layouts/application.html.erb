@@ -24,8 +24,9 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
           	<li><%= link_to 'New consumer', new_consumer_path %></li>
-          	<li><%= link_to 'New tallysheet entry', new_tallysheet_entry_path %></li>
-          	<li><%= link_to "Many new tallysheet entries", controller: "tallysheet_entries", action: "new_many" %></li>
+          	<li><%= link_to 'New entry', new_tallysheet_entry_path %></li>
+          	<li><%= link_to "Many new entries", controller: "tallysheet_entries", action: "new_many" %></li>
+          	<li><%= link_to "Latest entries", controller: "tallysheet_entries", action: "latest" %></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
