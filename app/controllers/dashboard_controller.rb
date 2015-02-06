@@ -46,12 +46,12 @@ class DashboardController < ApplicationController
 
   def set_consumers
     if sort_numeric_column != nil
-      @consumers = Consumer.includes(tallysheet_entries: [:beverage, :consumer]).load()
+      @consumers = Consumer.load()
       method_name = sort_numeric_column
       dir = sort_direction_numeric
       @consumers = @consumers.sort_by{|e| dir * e.send(method_name)}
     else
-      @consumers = Consumer.includes(tallysheet_entries: [:beverage, :consumer]).order(sort_column + " " + sort_direction).load()
+      @consumers = Consumer.order(sort_column + " " + sort_direction).load()
     end
   end
 
