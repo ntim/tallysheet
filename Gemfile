@@ -43,3 +43,5 @@ group :development, :test do
 end
 
 gem 'thin'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'

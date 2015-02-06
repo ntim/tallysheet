@@ -12,7 +12,7 @@ class TallysheetEntriesController < ApplicationController
   # GET /tallysheet_entries
   # GET /tallysheet_entries.json
   def index
-    @tallysheet_entries = TallysheetEntry.all
+    @tallysheet_entries = TallysheetEntry.paginate(:page => params[:page], :per_page => 12)
   end
   
   def latest 
