@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :consumers do
     get 'pay'
     post 'pay'
+    get 'transfer'
+    post 'transfer'
     get 'mail_debt_remainder'
     get 'history'
   end

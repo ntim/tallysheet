@@ -46,6 +46,11 @@ class Consumer < ActiveRecord::Base
     self.save
   end
   
+  def transfer recipient, amount
+    self.pay -amount
+    recipient.pay amount
+  end
+  
   def update_derived
     Rails.logger.info "update_derived for consumer " + self.id.to_s
     self.debt = self.derive_debt

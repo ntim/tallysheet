@@ -14,7 +14,22 @@ class ConsumersController < ApplicationController
     if params[:amount] != nil
       if numeric?(params[:amount])
         @consumer.pay params[:amount].to_f
-        flash[:notice] = 'Successfully payed.'
+        flash[:notice] = "Successfully payed #{params[:amount]} &euro;."
+        redirect_to @consumer
+      else
+        flash[:error] = "Amount has to be numeric."
+      end
+    end
+  end
+  
+  def transfer
+    @consumer = Consumer.find(params[:consumer_id])
+    @recipients = Consumer.where("id != #{params[:consumer_id]}").order("name ASC").all
+    if params[:amount] != nil
+      if numeric?(params[:amount])
+        recipient = Consumer.find(params[:recipient_id])
+        @consumer.transfer recipient, params[:amount].to_f
+        flash[:notice] = "Successfully transferred #{params[:amount]} &euro; to #{recipient.name}."
         redirect_to @consumer
       else
         flash[:error] = "Amount has to be numeric."
