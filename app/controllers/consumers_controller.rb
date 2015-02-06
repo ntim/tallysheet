@@ -1,5 +1,5 @@
 class ConsumersController < ApplicationController
-  before_filter :authenticate, :only => [:mail_debt_remainder, :pay, :edit, :update, :destroy]
+  before_filter :authenticate, :only => [:mail_debt_remainder, :pay, :edit, :update, :destroy, :transfer]
   before_action :set_consumer, :only => [:show, :edit, :update, :destroy]
   include ApplicationHelper
 
