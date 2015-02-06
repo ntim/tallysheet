@@ -1,8 +1,9 @@
-<h1>Editing consumer</h1>
+<div class="page-header">
+	<h1><%= @consumer.name %> <small>Edit</small></h1>
+</div>
 
 <%= render 'form' %>
 
 <hr>
 
-<%= link_to 'Show', @consumer, class: "btn btn-default" %>
-<%= link_to 'Back', consumers_path, class: "btn btn-default" %>
+<%= link_to 'Back', @consumer, class: "btn btn-default" %>

@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Transfer credit from <%= @consumer.name %></h1>
+	<h1><%= @consumer.name %> <small>Transfer credit</small></h1>
 </div>
 
 <%= form_tag(consumer_transfer_path(@consumer), class: "form-horizontal") do %>
