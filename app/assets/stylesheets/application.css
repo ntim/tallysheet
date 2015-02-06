@@ -21,15 +21,3 @@ label.checkbox {
 	font-weight: normal;
 	margin-left: 20px;
 }
-
-.alert-notice {
-	color: #3C763D;
-	background-color: #DFF0D8;
-	border-color: #D6E9C6;
-}
-
-.alert-error {
-	color: #A94442;
-	background-color: #F2DEDE;
-	border-color: #EBCCD1;
-}

@@ -50,15 +50,16 @@
 	<div class="container">&nbsp;</div>
 	<% end %>
     
-    <% if not flash.empty? %>
-    <div class="container">
-    <% flash.each do |name, msg| -%>
-    	<div class="alert alert-<%= name %>">
-      		<%= content_tag :div, msg, class: name %>
-    	</div>
-    <% end %>
-    </div>
-    <% end %>
+	<% if not flash.empty? %>
+	<div id="flash" class="container">
+		<% flash.each do |key, value| %>
+		<div class="alert <%= flash_class(key) %> alert-dismissable fade in">
+			<button class="close" data-dismiss="alert">×</button>
+			<%= value.html_safe %>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
     
     <div class="container" role="main">
 		<%= yield %>

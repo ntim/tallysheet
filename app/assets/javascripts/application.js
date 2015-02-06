@@ -30,5 +30,9 @@ Array.prototype.unique = function() {
 
 $(document).ready(function() {
 	Turbolinks.enableProgressBar();
+	// Fade out flash messages.
+	setInterval(function() {
+		$('.alert-dismissable').alert('close');
+	}, 5000);
 });
 
