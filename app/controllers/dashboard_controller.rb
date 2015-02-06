@@ -46,7 +46,7 @@ class DashboardController < ApplicationController
 
   def set_consumers
     if sort_numeric_column != nil
-      @consumers = Consumer.load()
+      @consumers = Consumer.all()
       method_name = sort_numeric_column
       dir = sort_direction_numeric
       @consumers = @consumers.sort_by{|e| dir * e.send(method_name)}
