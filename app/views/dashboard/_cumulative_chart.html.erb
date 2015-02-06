@@ -33,7 +33,7 @@ function cumulative_chart() {
 	
 	var color = d3.scale.category20();
 	
-	var xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(d3.time.days, 3)
+	var xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(d3.time.days, 7)
 	    .tickFormat(d3.time.format('%b, %a %d')).tickSize(0).tickPadding(8);
 	
 	var yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(d3.format("0d"));

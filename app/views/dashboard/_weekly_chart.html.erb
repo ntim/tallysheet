@@ -80,20 +80,19 @@ function weekly_chart() {
 	    data = data.map(function(d) {
 	        var idx = 0;
 	        var values = x_domain.map(function(x) {
-	            while (idx < d.values.length - 1 && d.values[idx + 1].time <= x) {
-	                idx += 1;
-	            }
-	            if (d.values[idx].time != x) {
-		            return {
-		                x: new Date(1000 * x),
-		                y: 0
-		            };
-	            }
-	            return {
-	                x: new Date(1000 * x),
-	                y: d.values[idx].amount
-	            };
-	        });
+				        if (idx <= d.values.length - 1 && d.values[idx].time == x) {
+						var r = {
+							x : new Date(1000 * x),
+							y : d.values[idx].amount
+						};
+						idx++;
+						return r;
+					}
+					return {
+						x : new Date(1000 * x),
+						y : 0
+					};
+		});
 	        return {
 	            name: d.name,
 	            values: values

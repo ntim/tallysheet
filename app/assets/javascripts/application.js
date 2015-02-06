@@ -27,3 +27,8 @@ Array.prototype.unique = function() {
     }
     return a;
 };
+
+$(document).ready(function() {
+	Turbolinks.enableProgressBar();
+});
+
