@@ -46,6 +46,7 @@ class ConsumersController < ApplicationController
   
   def history
     @consumer = Consumer.find(params[:consumer_id])
+    @tallysheet_entries = TallysheetEntry.where(:consumer => @consumer).paginate(:page => params[:page], :per_page => 12)
   end
 
   # GET /consumers/1
