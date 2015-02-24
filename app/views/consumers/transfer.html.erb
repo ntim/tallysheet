@@ -7,7 +7,7 @@
 <div class="form-group">
 	<%= label_tag :recipient, nil, class: "col-sm-2 control-label" %>
 	<div class="col-sm-10">
-		<%= select_tag :recipient_id, options_for_select(@recipients.collect{ |r| [r.name, r.id] }), class: "form-control" %>
+		<%= select_tag :recipient_id, options_for_select(@recipients.collect{ |r| [r.name, r.id] }), selected: nil, include_blank: true, class: "form-control" %>
 	</div>
 </div>
 
