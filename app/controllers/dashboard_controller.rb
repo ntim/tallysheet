@@ -29,7 +29,7 @@ class DashboardController < ApplicationController
   
   def weekly
     # Switch syntax for sqlite and mysql
-    week_tag = Rails.env.development? ? "strftime(\"%Y-%W\", created_at)" : "DATE_FORMAT(\"%Y-%u\", created_at)"
+    week_tag = Rails.env.development? ? "strftime(\"%Y-%W\", created_at)" : "DATE_FORMAT(created_at, '%Y-%u')"
     beverages = Beverage.all
     result = []
     beverages.each do |b|
