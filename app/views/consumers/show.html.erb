@@ -55,13 +55,13 @@
 					<td><%= e.created_at.to_formatted_s(:short) %></td>
 					<td><%= e.beverage.name %></td>
 					<td><%= e.amount %></td>
-					<td><%= "%.2f" % e.price %> €</td>
+					<td><%= "%.2f" % e.price %> &euro;</td>
 				</tr>
 				<% end %>
 				<% end %>
 				<tfoot>
 					<td colspan="3" style="text-align: right">Sum:</td>
-					<th ><%= "%.2f" % (@consumer.debt + @consumer.credit) %> €</th>
+					<th ><%= "%.2f" % (@consumer.debt + @consumer.credit) %> &euro;</th>
 				</tfoot>
 			</table>
 		</div>

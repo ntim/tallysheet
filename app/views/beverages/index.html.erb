@@ -13,7 +13,7 @@
     <% @beverages.each do |beverage| %>
       <tr>
         <td><%= beverage.name %></td>
-        <td><%= "%.2f" % beverage.price %> €</td>
+        <td><%= "%.2f" % beverage.price %> &euro;</td>
         <td><%= link_to 'Show', beverage, class: "btn btn-default btn-xs" %>
         <%= link_to 'Edit', edit_beverage_path(beverage), class: "btn btn-primary btn-xs" %>
         <%= link_to 'Destroy', beverage, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
