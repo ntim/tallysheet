@@ -45,3 +45,7 @@ end
 gem 'thin'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+
+group :test, :production do
+  gem 'mysql2'
+end
