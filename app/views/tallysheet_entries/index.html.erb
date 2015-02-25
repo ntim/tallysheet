@@ -25,7 +25,7 @@
 			<td><%= tallysheet_entry.beverage != nil ? tallysheet_entry.beverage.name : '-' %></td>
 			<td><%= tallysheet_entry.amount %></td>
 			<td><%= "%.2f" % tallysheet_entry.price %> &euro;</td>
-			<td><%= tallysheet_entry.payed %></td>
+			<td><span class="glyphicon glyphicon-<%= tallysheet_entry.payed ? 'ok' : 'remove' %>" aria-hidden="true"></span></td>
 			<td><%= link_to 'Show', tallysheet_entry, class: "btn btn-default btn-xs" %></td>
 			<td><%= link_to 'Edit', edit_tallysheet_entry_path(tallysheet_entry), class: "btn btn-primary btn-xs" %></td>
 			<td><%= link_to 'Destroy', tallysheet_entry, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
