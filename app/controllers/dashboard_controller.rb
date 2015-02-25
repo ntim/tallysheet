@@ -28,11 +28,13 @@ class DashboardController < ApplicationController
   end
   
   def weekly
+    # Switch syntax for sqlite and mysql
+    week_tag = Rails.env.development? ? "strftime(\"%Y-%W\", created_at)" : "DATE_FORMAT(\"%Y-%u\", created_at)"
     beverages = Beverage.all
     result = []
     beverages.each do |b|
-      entries = TallysheetEntry.select("strftime(\"%Y-%W\", created_at) as week, sum(amount) as total_amount")
-          .where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.year)).group("strftime(\"%Y-%W\", created_at)")
+      entries = TallysheetEntry.select("#{week_tag} as week, sum(amount) as total_amount")
+          .where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.year)).group(week_tag)
       values = []
       entries.each do |e|
         values.push({time: DateTime.strptime(e.week, '%Y-%W').to_i, amount: e.total_amount})
