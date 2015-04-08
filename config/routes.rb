@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :beverages
 
+  get 'consumers/update_derived'
   resources :consumers do
     get 'pay'
     post 'pay'

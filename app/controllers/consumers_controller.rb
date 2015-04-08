@@ -1,5 +1,5 @@
 class ConsumersController < ApplicationController
-  before_filter :authenticate, :only => [:mail_debt_remainder, :pay, :edit, :update, :destroy, :transfer]
+  before_filter :authenticate, :only => [:mail_debt_remainder, :pay, :edit, :update, :destroy, :transfer, :update_derived]
   before_action :set_consumer, :only => [:show, :edit, :update, :destroy]
   include ApplicationHelper
 
@@ -99,6 +99,18 @@ class ConsumersController < ApplicationController
     @consumer.destroy
     respond_to do |format|
       format.html { redirect_to consumers_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  # GET /consumers/update_derived
+  def update_derived
+    consumers = Consumer.all
+    for c in consumers
+      c.update_derived
+    end
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Updated derived attributes of all customers' }
       format.json { head :no_content }
     end
   end
