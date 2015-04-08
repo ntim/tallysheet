@@ -22,11 +22,10 @@ class TallysheetEntry < ActiveRecord::Base
   before_destroy do
     self.consumer.debt -= self.price
     if self.payed
-      self.consumer.amount_of_beverages += self.amount
+      self.consumer.amount_of_beverages -= self.amount
     else
-      self.consumer.amount_of_paid_beverages += self.amount
+      self.consumer.amount_of_paid_beverages -= self.amount
     end
-    self.consumer.amount_of_beverages -= self.amount
     self.consumer.save    
   end
   
