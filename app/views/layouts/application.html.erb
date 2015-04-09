@@ -31,7 +31,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
             	<% if !session[:authenticated] %>
-            	<%= link_to "Login", controller: "application", action: "login" %>
+            	<%= link_to "Login", controller: "dashboard", action: "login" %>
             	<% else %>
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></span></a>
             	<ul class="dropdown-menu" role="menu">
@@ -40,7 +40,7 @@
 					<li><%= link_to "All tallysheet entries", controller: "tallysheet_entries", action: "index" %></li>      
             		<li><%= link_to "Update derived attributes", controller: "consumers", action: "update_derived" %></li>
             	</ul>
-            	<% end %> 		
+            	<% end %>	
             </li>          	
           </ul>
         </div><!--/.nav-collapse -->

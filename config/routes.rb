@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  get 'login' => 'application#login'
+  get 'login' => 'dashboard#login'
 
   get '/tallysheet_entries/latest'
   get '/tallysheet_entries/new_many'

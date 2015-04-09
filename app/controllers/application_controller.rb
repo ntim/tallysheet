@@ -9,14 +9,6 @@ class ApplicationController < ActionController::Base
     "Rendered in %d ms" % millis
   end
 
-  def login
-    authenticate
-    respond_to do |format|
-      format.html { redirect_to request.referer.present? ? :back : root_path }
-      format.text { head :no_content }
-    end
-  end
-
   private
 
   def authenticate

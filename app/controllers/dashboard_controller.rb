@@ -1,8 +1,12 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate, :only => [:admin]
+  before_filter :authenticate, :only => [:login]
   before_action :set_consumers, :only => [:index, :render_partial]
   helper_method :sort_column, :sort_direction, :sort_numeric_column
   def index
+  end
+  
+  def login
+    redirect_to root_path
   end
 
   def cumulative
