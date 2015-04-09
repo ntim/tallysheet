@@ -9,9 +9,11 @@
 			<th>Amount</th>
 			<th>Price</th>
 			<th>Payed</th>
+			<% if session[:authenticated] %>
 			<th></th>
 			<th></th>
 			<th></th>
+			<% end %>
 		</tr>
 	</thead>
 
@@ -26,9 +28,11 @@
 			<td><%= tallysheet_entry.amount %></td>
 			<td><%= "%.2f" % tallysheet_entry.price %> &euro;</td>
 			<td><span class="glyphicon glyphicon-<%= tallysheet_entry.payed ? 'ok' : 'remove' %>" aria-hidden="true"></span></td>
+			<% if session[:authenticated] %>
 			<td><%= link_to 'Show', tallysheet_entry, class: "btn btn-default btn-xs" %></td>
 			<td><%= link_to 'Edit', edit_tallysheet_entry_path(tallysheet_entry), class: "btn btn-primary btn-xs" %></td>
 			<td><%= link_to 'Destroy', tallysheet_entry, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+			<% end %>
 		</tr>
 		<% end %>
 	</tbody>

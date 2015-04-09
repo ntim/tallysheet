@@ -4,19 +4,27 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception
   helper_method :rendering_time
   before_filter :set_rendering_start_time, :set_default_url_options_host
-  
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "tally" && password == "sheet!"
-    end
-  end
-
   def rendering_time
     millis = (Time.now.usec - @rendering_start_time).abs / 1000.0
     "Rendered in %d ms" % millis
   end
 
+  def login
+    authenticate
+    respond_to do |format|
+      format.html { redirect_to request.referer.present? ? :back : root_path }
+      format.text { head :no_content }
+    end
+  end
+
   private
+
+  def authenticate
+    session[:authenticated] = authenticate_or_request_with_http_basic do |username, password|
+      username == "tally" && password == "sheet!"
+    end
+    session[:authenticated]
+  end
 
   def set_rendering_start_time
     @rendering_start_time = Time.now.usec
