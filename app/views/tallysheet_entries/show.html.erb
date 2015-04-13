@@ -3,6 +3,20 @@
 <form class="form-horizontal" role="form">
 
 	<div class="form-group">
+		<label class="col-sm-2 control-label">Created at</label>
+		<div class="col-sm-10">
+			<input value="<%= @tallysheet_entry.created_at.to_s(:db) %>" type="text" class="form-control" disabled/>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Updated at</label>
+		<div class="col-sm-10">
+			<input value="<%= @tallysheet_entry.updated_at.to_s(:db) %>" type="text" class="form-control" disabled/>
+		</div>
+	</div>
+	
+	<div class="form-group">
 		<label class="col-sm-2 control-label">Consumer</label>
 		<div class="col-sm-10">
 			<input value="<%= @tallysheet_entry.consumer.name %>" type="text" class="form-control" disabled/>

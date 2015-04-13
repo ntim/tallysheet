@@ -125,6 +125,6 @@ class TallysheetEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tallysheet_entry_params
-      params.require(:tallysheet_entry).permit(:consumer_id, :beverage_id, :amount, :payed)
+      params.require(:tallysheet_entry).permit(:consumer_id, :beverage_id, :amount, :payed, :created_at)
     end
 end
