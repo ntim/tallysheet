@@ -7,6 +7,10 @@ class BeveragesController < ApplicationController
   def index
     @beverages = Beverage.all
   end
+  
+  def prices
+    @beverages = Beverage.all
+  end
 
   # GET /beverages/1
   # GET /beverages/1.json
@@ -70,6 +74,6 @@ class BeveragesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beverage_params
-      params.require(:beverage).permit(:name, :price)
+      params.require(:beverage).permit(:name, :price, :available)
     end
 end

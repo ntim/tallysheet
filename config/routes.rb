@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/tallysheet_entries/create_many'
   resources :tallysheet_entries
 
+  get '/beverages/prices'
   resources :beverages
 
   get 'consumers/update_derived'

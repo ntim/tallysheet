@@ -11,37 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115173651) do
+ActiveRecord::Schema.define(version: 20150702091848) do
 
   create_table "beverages", force: :cascade do |t|
-    t.text     "name",       limit: 65535
-    t.float    "price",      limit: 24
+    t.text     "name"
+    t.float    "price"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "available",  default: true
   end
 
   create_table "consumers", force: :cascade do |t|
-    t.text     "name",                     limit: 65535
-    t.text     "email",                    limit: 65535
-    t.float    "credit",                   limit: 24,    default: 0.0
+    t.text     "name"
+    t.text     "email"
+    t.float    "credit",                   default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "amount_of_beverages",      limit: 4,     default: 0
-    t.integer  "amount_of_paid_beverages", limit: 4,     default: 0
-    t.float    "debt",                     limit: 24,    default: 0.0
-    t.boolean  "visible",                  limit: 1,     default: true
+    t.integer  "amount_of_beverages",      default: 0
+    t.integer  "amount_of_paid_beverages", default: 0
+    t.float    "debt",                     default: 0.0
+    t.boolean  "visible",                  default: true
   end
 
   create_table "tallysheet_entries", force: :cascade do |t|
-    t.integer  "consumer_id", limit: 4
-    t.integer  "beverage_id", limit: 4
-    t.integer  "amount",      limit: 4, default: 1
-    t.boolean  "payed",       limit: 1
+    t.integer  "consumer_id"
+    t.integer  "beverage_id"
+    t.integer  "amount",      default: 1
+    t.boolean  "payed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "tallysheet_entries", ["beverage_id"], name: "index_tallysheet_entries_on_beverage_id", using: :btree
-  add_index "tallysheet_entries", ["consumer_id"], name: "index_tallysheet_entries_on_consumer_id", using: :btree
+  add_index "tallysheet_entries", ["beverage_id"], name: "index_tallysheet_entries_on_beverage_id"
+  add_index "tallysheet_entries", ["consumer_id"], name: "index_tallysheet_entries_on_consumer_id"
 
 end

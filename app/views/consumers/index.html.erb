@@ -5,6 +5,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Email</th>
+			<th>Visible</th>
 			<th>Credit</th>
 			<th></th>
 		</tr>
@@ -15,6 +16,7 @@
 		<tr>
 			<td><%= consumer.name %></td>
 			<td><%= consumer.email %></td>
+        	<td><span class="glyphicon glyphicon-<%= consumer.visible ? 'ok' : 'remove' %>" aria-hidden="true"></span></td>
 			<td><%= style_credit consumer.credit %></td>
 			<td><%= link_to 'Show', consumer, class: "btn btn-default btn-xs" %>
 			<%= link_to 'Pay', consumer_pay_path(consumer), class: "btn btn-success btn-xs" %>

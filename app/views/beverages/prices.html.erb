@@ -1,0 +1,25 @@
+<div class="page-header"><h1>Prices</h1></div>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Available</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @beverages.each do |beverage| %>
+      <tr>
+        <td><%= beverage.name %></td>
+        <td><span class="glyphicon glyphicon-<%= beverage.available ? 'ok' : 'remove' %>" aria-hidden="true"></span></td>
+        <td><%= "%.2f" % beverage.price %> &euro;</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr>
+
+<%= link_to 'Back', root_path, class: "btn btn-default" %>

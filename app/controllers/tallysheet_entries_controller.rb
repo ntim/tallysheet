@@ -6,7 +6,7 @@ class TallysheetEntriesController < ApplicationController
   
   def init
     @consumers = Consumer.order("name ASC").all
-    @beverages = Beverage.order("name ASC").all
+    @beverages = Beverage.order("name ASC").where(available: true).all
   end
 
   # GET /tallysheet_entries
