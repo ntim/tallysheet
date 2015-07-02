@@ -28,8 +28,10 @@ class DashboardController < ApplicationController
     result = []
     beverages.each do |b|
       entries = TallysheetEntry.select("#{sql_tag} as time, sum(amount) as total_amount").where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - range)).group("time")
-      # Create a hash
-      result.push({name: b.name, values: Hash[entries.map {|e| [DateTime.strptime(e.time, date_format), e.total_amount]}]})
+      if entries.length > 0
+        # Create a hash
+        result.push({name: b.name, values: Hash[entries.map {|e| [DateTime.strptime(e.time, date_format), e.total_amount]}]})
+      end
     end
     # Insert missing data.
     all = result.map {|b| b[:values].keys}.flatten.uniq
