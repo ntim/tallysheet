@@ -8,38 +8,28 @@ class DashboardController < ApplicationController
   def login
     redirect_to root_path
   end
-
-  # Deprecated
-  def cumulative
-    beverages = Beverage.all
-    result = []
-    beverages.each do |b|
-      values = []
-      cum_sum = 0
-      entries = TallysheetEntry.where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.month)).order("id ASC")
-      entries.each do |e|
-        cum_sum += e.amount
-        if values.size > 0 && values[-1][:time] == e.created_at.to_i
-          values[-1][:cum_sum] = cum_sum
-        else
-          values.push({time: e.created_at.to_i, cum_sum: cum_sum})
-        end
-      end
-      if entries.size > 0
-        result.push({name: b.name, values: values})
-      end
-    end
-    render :json => result
+  
+  def daily
+    day_tag = Rails.env.development? ? "strftime(\"%Y-%j\", created_at)" : "DATE_FORMAT(created_at, '%Y-%j')"
+    date_format = "%Y-%j"
+    render :json => time_series(1.month, day_tag, date_format)
   end
   
   def weekly
     week_tag = Rails.env.development? ? "strftime(\"%Y-%W\", created_at)" : "DATE_FORMAT(created_at, '%Y-%u')"
+    date_format = "%Y-%W"
+    render :json => time_series(1.year, week_tag, date_format)
+  end
+
+  private
+  
+  def time_series range, sql_tag, date_format
     beverages = Beverage.all
     result = []
     beverages.each do |b|
-      entries = TallysheetEntry.select("#{week_tag} as time, sum(amount) as total_amount").where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.month)).group("time")
+      entries = TallysheetEntry.select("#{sql_tag} as time, sum(amount) as total_amount").where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - range)).group("time")
       # Create a hash
-      result.push({name: b.name, values: Hash[entries.map {|e| [DateTime.strptime(e.time, '%Y-%W'), e.total_amount]}]})
+      result.push({name: b.name, values: Hash[entries.map {|e| [DateTime.strptime(e.time, date_format), e.total_amount]}]})
     end
     # Insert missing data.
     all = result.map {|b| b[:values].keys}.flatten.uniq
@@ -47,11 +37,8 @@ class DashboardController < ApplicationController
     result.each do |r|
       r[:values] = all.merge(r[:values])
     end
-    #
-    render :json => result
+    return result
   end
-
-  private
 
   def set_consumers
     if sort_numeric_column != nil

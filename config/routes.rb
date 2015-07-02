@@ -21,8 +21,8 @@ Rails.application.routes.draw do
     get 'history'
   end
   
-  get '/dashboard/cumulative'
   get '/dashboard/weekly'
+  get '/dashboard/daily'
   resources :dashboard
 
   # You can have the root of your site routed with "root"

@@ -60,7 +60,7 @@ function cumulative_chart() {
 	    .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
-	d3.json("/dashboard/weekly.json", function(error, data) {
+	d3.json("/dashboard/daily.json", function(error, data) {
 	
 	    // Map colors.
 	    color.domain(data.map(function(d) {
