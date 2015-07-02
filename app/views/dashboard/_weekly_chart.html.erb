@@ -62,48 +62,34 @@ function weekly_chart() {
 	
 	d3.json("/dashboard/weekly.json", function(error, data) {
 	
+		// Map colors.
 	    color.domain(data.map(function(d) {
 	        return d.name;
 	    }));
 	
-	    // Get all unique time values.
-	    var x_domain = data.map(function(d) {
-	        return d.values.map(function(v) {
-	            return v.time;
-	        });
-	    }).reduce(function(a, b) {
-	        return a.concat(b);
-	    }).unique();
-	    x_domain.sort();
-	
-	    // Interpolate all values in between.
-	    data = data.map(function(d) {
-	        var idx = 0;
-	        var values = x_domain.map(function(x) {
-				        if (idx <= d.values.length - 1 && d.values[idx].time == x) {
-						var r = {
-							x : new Date(1000 * x),
-							y : d.values[idx].amount
-						};
-						idx++;
-						return r;
-					}
-					return {
-						x : new Date(1000 * x),
-						y : 0
-					};
-		});
-	        return {
-	            name: d.name,
-	            values: values
-	        };
+		// Get x-domain.
+	    var x_domain = Object.keys(data[0].values).map(function(e) {
+	    	return new Date(e);
 	    });
-	
 	    // Determine range.
-	    x.domain(d3.extent(x_domain).map(function(d) {
-	        return new Date(1000 * d);
-	    }));
-	    
+	    x.domain(d3.extent(x_domain));
+	
+		// Transform values array to x-y
+		data = data.map(function(d) {
+			keys = Object.keys(d.values);
+			keys.sort();
+			values = keys.map(function(e) {
+				return {
+					x: new Date(e),
+					y: d.values[e]
+				};
+			});
+			return {
+				name: d.name,
+				values: values
+			};
+		});
+	
 	    var y_max = 0;
 	    for(var i=0;i < data[0].values.length; i++) {
 	    	y_max = Math.max(y_max, d3.sum(data, function(d) {

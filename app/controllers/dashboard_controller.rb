@@ -9,6 +9,7 @@ class DashboardController < ApplicationController
     redirect_to root_path
   end
 
+  # Deprecated
   def cumulative
     beverages = Beverage.all
     result = []
@@ -32,19 +33,21 @@ class DashboardController < ApplicationController
   end
   
   def weekly
-    # Switch syntax for sqlite and mysql
     week_tag = Rails.env.development? ? "strftime(\"%Y-%W\", created_at)" : "DATE_FORMAT(created_at, '%Y-%u')"
     beverages = Beverage.all
     result = []
     beverages.each do |b|
-      entries = TallysheetEntry.select("#{week_tag} as week, sum(amount) as total_amount")
-          .where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.year)).group(week_tag)
-      values = []
-      entries.each do |e|
-        values.push({time: DateTime.strptime(e.week, '%Y-%W').to_i, amount: e.total_amount})
-      end
-      result.push({name: b.name, values: values})
+      entries = TallysheetEntry.select("#{week_tag} as time, sum(amount) as total_amount").where("beverage_id = ? and created_at >= ?", b.id, (Time.zone.now - 1.month)).group("time")
+      # Create a hash
+      result.push({name: b.name, values: Hash[entries.map {|e| [DateTime.strptime(e.time, '%Y-%W'), e.total_amount]}]})
     end
+    # Insert missing data.
+    all = result.map {|b| b[:values].keys}.flatten.uniq
+    all = Hash[all.map {|a| [a, 0]}]
+    result.each do |r|
+      r[:values] = all.merge(r[:values])
+    end
+    #
     render :json => result
   end
 

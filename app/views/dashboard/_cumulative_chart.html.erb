@@ -60,45 +60,43 @@ function cumulative_chart() {
 	    .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
-	d3.json("/dashboard/cumulative.json", function(error, data) {
+	d3.json("/dashboard/weekly.json", function(error, data) {
 	
+	    // Map colors.
 	    color.domain(data.map(function(d) {
 	        return d.name;
 	    }));
 	
-	    // Get all unique time values.
-	    var x_domain = data.map(function(d) {
-	        return d.values.map(function(v) {
-	            return v.time;
-	        });
-	    }).reduce(function(a, b) {
-	        return a.concat(b);
-	    }).unique();
-	    x_domain.sort();
-	
-	    // Interpolate all values in between.
-	    data = data.map(function(d) {
-	        var idx = 0;
-	        var values = x_domain.map(function(x) {
-	            while (idx < d.values.length - 1 && d.values[idx + 1].time <= x) {
-	                idx += 1;
-	            }
-	            return {
-	                x: new Date(1000 * x),
-	                y: d.values[idx].cum_sum
-	            };
-	        });
-	        return {
-	            name: d.name,
-	            values: values
-	        };
+		// Get x-domain.
+	    var x_domain = Object.keys(data[0].values).map(function(e) {
+	    	return new Date(e);
 	    });
+	    // Determine range.
+	    x.domain(d3.extent(x_domain));
+	
+		// Transform values array to x-y and compute cum-sum
+		data = data.map(function(d) {
+			keys = Object.keys(d.values);
+			keys.sort();
+			sum = 0.0;
+			values = keys.map(function(e) {
+				sum = sum + d.values[e];
+				return {
+					x: new Date(e),
+					y: sum
+				};
+			});
+			return {
+				name: d.name,
+				values: values
+			};
+		});
 	
 	    // Determine range.
-	    x.domain(d3.extent(x_domain).map(function(d) {
-	        return new Date(1000 * d);
-	    }));
 	    y.domain([0, d3.sum(data, function(d) {
+	    	if(d.values.length == 0) {
+	    		return 0;
+	    	}
 	        return d.values[d.values.length - 1].y;
 	    })]);
 	
