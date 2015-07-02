@@ -9,9 +9,9 @@ class DashboardController < ApplicationController
     redirect_to root_path
   end
   
-  def daily
-    day_tag = Rails.env.development? ? "strftime(\"%Y-%j\", created_at)" : "DATE_FORMAT(created_at, '%Y-%j')"
-    date_format = "%Y-%j"
+  def hourly
+    day_tag = Rails.env.development? ? "strftime(\"%Y-%j-%H\", created_at)" : "DATE_FORMAT(created_at, '%Y-%j-%H')"
+    date_format = "%Y-%j-%H"
     render :json => time_series(1.month, day_tag, date_format)
   end
   
