@@ -1,6 +1,15 @@
 <div class="page-header">
 	<h1><%= @consumer.name %></h1>
 </div>
+
+<p class="text-muted">
+<% @quota.each do |beverage, share| %>
+	<%= beverage.name %> <span class="badge"><%= (share * 100).round %> %</span>
+<% end %>
+</p>
+
+<hr/>
+
 <form class="form-horizontal" role="form">
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Name</label>

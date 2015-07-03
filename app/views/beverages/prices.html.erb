@@ -12,7 +12,7 @@
   <tbody>
     <% @beverages.each do |beverage| %>
       <tr>
-        <td><%= beverage.name %></td>
+        <td><%= beverage.name %> <span class="badge"><%= (@quota[beverage] * 100).round %> %</span></td>
         <td><span class="glyphicon glyphicon-<%= beverage.available ? 'ok' : 'remove' %>" aria-hidden="true"></span></td>
         <td><%= "%.2f" % beverage.price %> &euro;</td>
       </tr>

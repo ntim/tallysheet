@@ -52,6 +52,12 @@ class ConsumersController < ApplicationController
   # GET /consumers/1
   # GET /consumers/1.json
   def show
+    total = TallysheetEntry.where(consumer: @consumer).sum(:amount) * 1.0
+    @quota = Hash.new
+    Beverage.all.each do |b|
+      puts TallysheetEntry.where(beverage: b).sum(:amount)
+      @quota[b] = TallysheetEntry.where(consumer: @consumer, beverage: b).sum(:amount) / total
+    end
   end
 
   # GET /consumers/new

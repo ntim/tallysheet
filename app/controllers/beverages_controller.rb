@@ -1,15 +1,21 @@
 class BeveragesController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update, :destroy]
   before_action :set_beverage, :only => [:show, :edit, :update, :destroy]
-
   # GET /beverages
   # GET /beverages.json
+  
   def index
     @beverages = Beverage.all
   end
-  
+
   def prices
     @beverages = Beverage.all
+    total = TallysheetEntry.sum(:amount) * 1.0
+    @quota = Hash.new
+    @beverages.each do |b|
+      puts TallysheetEntry.where(beverage: b).sum(:amount)
+      @quota[b] = TallysheetEntry.where(beverage: b).sum(:amount) / total
+    end
   end
 
   # GET /beverages/1
@@ -67,13 +73,14 @@ class BeveragesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_beverage
-      @beverage = Beverage.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def beverage_params
-      params.require(:beverage).permit(:name, :price, :available)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_beverage
+    @beverage = Beverage.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def beverage_params
+    params.require(:beverage).permit(:name, :price, :available)
+  end
 end
