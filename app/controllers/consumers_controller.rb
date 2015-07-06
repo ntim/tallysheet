@@ -35,7 +35,7 @@ class ConsumersController < ApplicationController
     end
   end
   
-  def mail_debt_remainder
+  def mail_debt_reminder
     ConsumersMailer.debt_reminder(@consumer).deliver
     flash[:notice] = "Delivered reminder email to %s." % @consumer.name
     redirect_to :back

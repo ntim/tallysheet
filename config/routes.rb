@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     post 'pay'
     get 'transfer'
     post 'transfer'
-    get 'mail_debt_remainder'
+    get 'mail_debt_reminder'
     get 'history'
     get 'payments'
   end

@@ -22,7 +22,7 @@
 			<% if session[:authenticated] %>
 			<%= link_to 'Pay', consumer_pay_path(consumer), class: "btn btn-success btn-xs" %>
 			<% if consumer.debt > 5.00 %>
-			<%= link_to 'Remind', consumer_mail_debt_remainder_path(consumer), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+			<%= link_to 'Remind', consumer_mail_debt_reminder_path(consumer), data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
 			<% end %>
 			<% end %>
 			</td>
