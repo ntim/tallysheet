@@ -44,6 +44,8 @@ class Consumer < ActiveRecord::Base
     self.amount_of_paid_beverages += self.amount_of_beverages
     self.amount_of_beverages = 0
     self.save
+    #
+    Payment.create({consumer: self, amount: amount})
   end
   
   def transfer recipient, amount

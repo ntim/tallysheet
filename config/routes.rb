@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     post 'transfer'
     get 'mail_debt_remainder'
     get 'history'
+    get 'payments'
   end
   
   get '/dashboard/weekly'

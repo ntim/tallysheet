@@ -1,0 +1,24 @@
+<div class="page-header">
+	<h1><%= @consumer.name %> <small>Payments</small></h1>
+</div>
+
+<p class="text-muted"><%= page_entries_info @payments %></p>
+
+<table class="table table-striped table-hover">
+	<thead>
+		<th>Date</th>
+		<th>Amount</th>
+	</thead>
+	<% @payments.each do |e| %>
+	<tr>
+		<td><%= e.created_at.to_formatted_s(:short) %></td>
+		<td><%= "%.2f" % e.amount %> &euro;</td>
+	</tr>
+	<% end %>
+</table>
+
+<%= will_paginate @payments, :renderer => BootstrapPagination::Rails %>
+
+<hr>
+
+<%= link_to 'Back', consumer_path(@consumer), class: "btn btn-default" %>

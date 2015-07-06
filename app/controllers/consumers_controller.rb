@@ -1,6 +1,6 @@
 class ConsumersController < ApplicationController
   before_filter :authenticate, :only => [:create, :mail_debt_remainder, :pay, :edit, :update, :destroy, :transfer, :update_derived]
-  before_action :set_consumer, :only => [:show, :edit, :update, :destroy]
+  before_action :set_consumer, :only => [:show, :edit, :update, :destroy, :history, :payments, :mail_debt_remainder, :transfer, :pay]
   include ApplicationHelper
 
   # GET /consumers
@@ -10,7 +10,6 @@ class ConsumersController < ApplicationController
   end
   
   def pay
-    @consumer = Consumer.find(params[:consumer_id])
     if params[:amount] != nil
       if numeric?(params[:amount])
         @consumer.pay params[:amount].to_f
@@ -23,7 +22,6 @@ class ConsumersController < ApplicationController
   end
   
   def transfer
-    @consumer = Consumer.find(params[:consumer_id])
     @recipients = Consumer.where("id != #{params[:consumer_id]}").order("name ASC").all
     if params[:amount] != nil
       if numeric?(params[:amount])
@@ -38,16 +36,19 @@ class ConsumersController < ApplicationController
   end
   
   def mail_debt_remainder
-    @consumer = Consumer.find(params[:consumer_id])
     ConsumersMailer.debt_reminder(@consumer).deliver
     flash[:notice] = "Delivered reminder email to %s." % @consumer.name
     redirect_to :back
   end
   
   def history
-    @consumer = Consumer.find(params[:consumer_id])
     @tallysheet_entries = TallysheetEntry.where(:consumer => @consumer).paginate(:page => params[:page], :per_page => 12)
   end
+
+  def payments
+  	@payments = Payment.where(consumer: @consumer).paginate(:page => params[:page], :per_page => 12)
+  end
+
 
   # GET /consumers/1
   # GET /consumers/1.json
@@ -55,8 +56,11 @@ class ConsumersController < ApplicationController
     total = TallysheetEntry.where(consumer: @consumer).sum(:amount) * 1.0
     @quota = Hash.new
     Beverage.all.each do |b|
-      puts TallysheetEntry.where(beverage: b).sum(:amount)
-      @quota[b] = TallysheetEntry.where(consumer: @consumer, beverage: b).sum(:amount) / total
+      if total > 0
+      	@quota[b] = TallysheetEntry.where(consumer: @consumer, beverage: b).sum(:amount) / total
+      else
+      	@quota[b] = 0
+      end
     end
   end
 
@@ -124,7 +128,11 @@ class ConsumersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_consumer
-      @consumer = Consumer.find(params[:id])
+      if params.has_key? :consumer_id
+      	@consumer = Consumer.find(params[:consumer_id])
+      else
+        @consumer = Consumer.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
