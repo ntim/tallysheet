@@ -3,8 +3,7 @@
 </div>
 
 <p class="text-muted">
-<% @quota.sort_by {|k, v| v}.reverse %>
-<% @quota.each do |beverage, share| %>
+<% @quota.sort_by {|k, v| v}.reverse.each do |beverage, share| %>
 	<% if share > 0 %>
 		<span style="white-space:nowrap;"><%= beverage.name %> <span class="badge"><%= share >= 0.01 ? (share * 100).round : "< 1" %> %</span></span>
 	<% end %>
