@@ -11,7 +11,7 @@
 	</thead>
 	<% @payments.each do |e| %>
 	<tr>
-		<td><%= e.created_at.to_formatted_s(:short) %></td>
+		<td><%= e.created_at.to_formatted_s(:long) %></td>
 		<td><%= "%.2f" % e.amount %> &euro;</td>
 	</tr>
 	<% end %>

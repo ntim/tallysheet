@@ -13,7 +13,7 @@
 	</thead>
 	<% @tallysheet_entries.each do |e| %>
 	<tr>
-		<td><%= e.created_at.to_formatted_s(:short) %></td>
+		<td><%= e.created_at.to_formatted_s(:long) %></td>
 		<td><%= e.beverage.name %></td>
 		<td><%= e.amount %></td>
 		<td><%= "%.2f" % e.price %> &euro;</td>
