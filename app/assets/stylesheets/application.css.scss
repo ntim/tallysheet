@@ -8,16 +8,31 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
- *= require_tree .
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 body {
 	padding-top: 50px;
 	padding-bottom: 20px;
 }
-
 label.checkbox {
 	font-weight: normal;
 	margin-left: 20px;
+}
+.container.footer {
+  margin-top: 15px;
+}
+.container.footer p {
+  text-align: right;
+}
+#flash { 
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  width: 33%;
+  z-index: 1040;
 }

@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require turbolinks
-//= require d3.v3.min
+//= require d3
 //= require_tree .
 
 Array.prototype.unique = function() {
@@ -28,11 +29,12 @@ Array.prototype.unique = function() {
     return a;
 };
 
-$(document).ready(function() {
+$(document).on('ready page:load', function() {
 	Turbolinks.enableProgressBar();
 	// Fade out flash messages.
 	setInterval(function() {
 		$('.alert-dismissable').alert('close');
 	}, 5000);
+	// Active links.
+    $('a.active').parent().addClass('active');
 });
-

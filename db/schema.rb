@@ -18,24 +18,20 @@ ActiveRecord::Schema.define(version: 20150706101509) do
     t.float    "price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "available",  limit: 1, default: 1
+    t.boolean  "available",  default: true
   end
-
-  add_index "beverages", ["id"], name: "sqlite_autoindex_beverages_1", unique: true
 
   create_table "consumers", force: :cascade do |t|
     t.text     "name"
     t.text     "email"
-    t.float    "credit",                              default: 0.0
+    t.float    "credit",                   default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "amount_of_beverages",      limit: 11, default: 0
-    t.integer  "amount_of_paid_beverages", limit: 11, default: 0
-    t.float    "debt",                                default: 0.0
-    t.integer  "visible",                  limit: 1,  default: 1
+    t.integer  "amount_of_beverages",      default: 0
+    t.integer  "amount_of_paid_beverages", default: 0
+    t.float    "debt",                     default: 0.0
+    t.boolean  "visible",                  default: true
   end
-
-  add_index "consumers", ["id"], name: "sqlite_autoindex_consumers_1", unique: true
 
   create_table "payments", force: :cascade do |t|
     t.integer  "consumer_id"
@@ -47,16 +43,15 @@ ActiveRecord::Schema.define(version: 20150706101509) do
   add_index "payments", ["consumer_id"], name: "index_payments_on_consumer_id"
 
   create_table "tallysheet_entries", force: :cascade do |t|
-    t.integer  "consumer_id", limit: 11
-    t.integer  "beverage_id", limit: 11
-    t.integer  "amount",      limit: 11, default: 1
-    t.integer  "payed",       limit: 1
+    t.integer  "consumer_id"
+    t.integer  "beverage_id"
+    t.integer  "amount",      default: 1
+    t.boolean  "payed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "tallysheet_entries", ["beverage_id"], name: "tallysheet_entries_index_tallysheet_entries_on_beverage_id"
-  add_index "tallysheet_entries", ["consumer_id"], name: "tallysheet_entries_index_tallysheet_entries_on_consumer_id"
-  add_index "tallysheet_entries", ["id"], name: "sqlite_autoindex_tallysheet_entries_1", unique: true
+  add_index "tallysheet_entries", ["beverage_id"], name: "index_tallysheet_entries_on_beverage_id"
+  add_index "tallysheet_entries", ["consumer_id"], name: "index_tallysheet_entries_on_consumer_id"
 
 end

@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Unicorn as the app server
 # gem 'unicorn'
+gem 'passenger'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -42,10 +43,28 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'passenger'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap'
-
 group :test, :production do
   gem 'mysql2'
 end
+
+# JSON for parsing
+gem 'json'
+
+# Pagination of intex pages
+gem 'will_paginate'
+
+# Bootstrap CSS
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
+
+# And Fontawesome for icons
+gem 'font-awesome-sass'
+
+# Nicer pagination using bootstrap CSS.
+gem 'will_paginate-bootstrap'
+
+# Active links.
+gem 'active_link_to'
+
+# D3
+gem 'd3_rails'
