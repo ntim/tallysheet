@@ -9,7 +9,7 @@
 <%= form_tag(consumer_pay_path(@consumer), class: "form-horizontal") do %>
 
 <div class="form-group">
-	<%= label_tag :name, nil, class: "col-sm-2 control-label" %>
+	<%= label_tag :amount, nil, class: "col-sm-2 control-label" %>
 	<div class="col-sm-10">
 		<div class="input-group">
 			<%= text_field_tag :amount, "", placeholder: "0.00", class: "form-control" %>
