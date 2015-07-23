@@ -42,7 +42,7 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'thin'
+gem 'passenger'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
