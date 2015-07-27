@@ -1,0 +1,17 @@
+[Unit]
+Description=Passenger Standalone Application Server
+After=network.target
+ 
+[Service]
+Type=forking
+PrivateTmp=yes
+WorkingDirectory=/home/tallysheet/tallysheet
+RuntimeDirectory=passenger
+RuntimeDirectoryMode=0755
+PIDFile=/run/passenger/tallysheet.pid
+ExecStart=/usr/local/bin/passenger start -d --pid-file /run/passenger/tallysheet.pid -e production
+ExecReload=/usr/local/bin/passenger-config restart-app /home/tallysheet/tallysheet
+ExecStop=/usr/local/bin/passenger stop --pid-file /run/passenger/tallysheeet.pid
+
+[Install]
+WantedBy=multi-user.target

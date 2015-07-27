@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+Gemfile.lock
+/public/assets/*
+passenger*.pid
+passenger*.pid.lock
