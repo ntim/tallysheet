@@ -10,14 +10,14 @@ class DashboardController < ApplicationController
   end
   
   def hourly
-    day_tag = Rails.env.development? ? "strftime(\"%Y-%j-%H\", created_at)" : "DATE_FORMAT(created_at, '%Y-%j-%H')"
+    day_tag = "DATE_FORMAT(created_at, '%Y-%j-%H')"
     date_format = "%Y-%j-%H"
     render :json => time_series(1.month, day_tag, date_format)
   end
   
   def weekly
-    week_tag = Rails.env.development? ? "strftime(\"%Y-%W\", created_at)" : "DATE_FORMAT(created_at, '%Y-%u')"
-    date_format = "%Y-%W"
+    week_tag = "DATE_FORMAT(created_at, '%Y-%U')"
+    date_format = "%Y-%U"
     render :json => time_series(1.year, week_tag, date_format)
   end
 
