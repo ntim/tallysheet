@@ -1,7 +1,9 @@
 class BeveragesController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update, :destroy]
   before_action :set_beverage, :only => [:show, :edit, :update, :destroy]
-  helper_method :sort_column, :sort_direction, :sort_numeric_column
+  
+  include Sortable
+  
   # GET /beverages
   # GET /beverages.json
   
@@ -10,14 +12,8 @@ class BeveragesController < ApplicationController
   end
 
   def prices
-    if sort_numeric_column != nil
-      @beverages = Beverage.all()
-      method_name = sort_numeric_column
-      dir = sort_direction_numeric
-      @beverages = @beverages.sort_by{|e| dir * e.send(method_name)}
-    else
-      @beverages = Beverage.order(sort_column + " " + sort_direction).load()
-    end
+    set_default_sort_column("name")
+    @beverages = Beverage.order(sort_column + " " + sort_direction).load()
     total = TallysheetEntry.sum(:amount) * 1.0
     @quota = Hash.new
     @beverages.each do |b|
@@ -90,21 +86,5 @@ class BeveragesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def beverage_params
     params.require(:beverage).permit(:name, :price, :available)
-  end
-
-  def sort_column
-    Beverage.column_names.include?(params[:sort]) ? params[:sort] : params[:sort_numeric] != nil ? "" : "name"
-  end
-
-  def sort_numeric_column
-    params[:sort_numeric] != nil && Beverage.new.respond_to?(params[:sort_numeric]) ? params[:sort_numeric] : nil
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
-  def sort_direction_numeric
-    params[:direction] == "asc" ? 1 : -1
   end
 end
