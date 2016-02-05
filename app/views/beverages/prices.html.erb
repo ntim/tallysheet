@@ -3,9 +3,9 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Available</th>
-      <th>Price</th>
+      <th><%= sortable "name", "Name" %></th>
+      <th><%= sortable_amount "available", "Available" %></th>
+      <th><%= sortable_numeric "price", "Price" %></th>
     </tr>
   </thead>
 
