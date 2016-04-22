@@ -57,19 +57,8 @@
 	<div class="container">&nbsp;</div>
 	<% end %>
     
-	<% if not flash.empty? %>
 	<div id="flash" class="container">
-		<% flash.each do |key, value| %>
-		<div class="alert <%= flash_class(key) %> alert-dismissable fade in">
-			<button class="close" data-dismiss="alert">×</button>
-			<%= value.html_safe %>
-		</div>
-		<% end %>
-	</div>
-	<% end %>
-    
 	<% if not @static_flashes.empty? %>
-	<div id="flash" class="container">
 		<% @static_flashes.each do |flash| %>
 		<div class="alert <%= flash_class("success") %> alert-dismissable fade in">
 			<button class="close" data-dismiss="alert">×</button>
@@ -77,8 +66,19 @@
 			<%= sanitize flash.content %>
 		</div>
 		<% end %>
-	</div>
 	<% end %>
+	<% if not flash.empty? %>
+		<% flash.each do |key, value| %>
+		<div class="alert <%= flash_class(key) %> alert-dismissable fade in">
+			<button class="close" data-dismiss="alert">×</button>
+			<%= value.html_safe %>
+		</div>
+		<% end %>
+	<% end %>
+	</div>
+    
+	<div id="flash" class="container">
+	</div>
     
     <div class="container" role="main">
 		<%= yield %>
