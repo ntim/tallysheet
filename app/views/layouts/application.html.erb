@@ -38,7 +38,8 @@
           			<li><%= active_link_to 'New consumer', new_consumer_path %></li>
             		<li><%= active_link_to "All consumers", controller: "consumers", action: "index" %></li>
 			        <li><%= active_link_to "All beverages", controller: "beverages", action: "index" %></li>
-					<li><%= active_link_to "All tallysheet entries", controller: "tallysheet_entries", action: "index" %></li>      
+					<li><%= active_link_to "All tallysheet entries", controller: "tallysheet_entries", action: "index" %></li>
+            		<li><%= active_link_to "All static flash messages", controller: "static_flashes", action: "index" %></li>      
             		<li><%= active_link_to "Update derived attributes", controller: "consumers", action: "update_derived" %></li>
             	</ul>
             	<% end %>	
@@ -62,6 +63,18 @@
 		<div class="alert <%= flash_class(key) %> alert-dismissable fade in">
 			<button class="close" data-dismiss="alert">×</button>
 			<%= value.html_safe %>
+		</div>
+		<% end %>
+	</div>
+	<% end %>
+    
+	<% if not @static_flashes.empty? %>
+	<div id="flash" class="container">
+		<% @static_flashes.each do |flash| %>
+		<div class="alert <%= flash_class("success") %> alert-dismissable fade in">
+			<button class="close" data-dismiss="alert">×</button>
+			<span class="small text-muted"><%= flash.expires.to_formatted_s(:short) %></span><br>
+			<%= sanitize flash.content %>
 		</div>
 		<% end %>
 	</div>
