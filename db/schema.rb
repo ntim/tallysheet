@@ -11,47 +11,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706101509) do
+ActiveRecord::Schema.define(version: 20160422090816) do
 
   create_table "beverages", force: :cascade do |t|
-    t.text     "name"
-    t.float    "price"
+    t.text     "name",       limit: 65535
+    t.float    "price",      limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "available",  default: true
+    t.boolean  "available",  limit: 1,     default: true
   end
 
   create_table "consumers", force: :cascade do |t|
-    t.text     "name"
-    t.text     "email"
-    t.float    "credit",                   default: 0.0
+    t.text     "name",                     limit: 65535
+    t.text     "email",                    limit: 65535
+    t.float    "credit",                   limit: 24,    default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "amount_of_beverages",      default: 0
-    t.integer  "amount_of_paid_beverages", default: 0
-    t.float    "debt",                     default: 0.0
-    t.boolean  "visible",                  default: true
+    t.integer  "amount_of_beverages",      limit: 4,     default: 0
+    t.integer  "amount_of_paid_beverages", limit: 4,     default: 0
+    t.float    "debt",                     limit: 24,    default: 0.0
+    t.boolean  "visible",                  limit: 1,     default: true
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "consumer_id"
-    t.float    "amount"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "consumer_id", limit: 4
+    t.float    "amount",      limit: 24
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "payments", ["consumer_id"], name: "index_payments_on_consumer_id"
+  add_index "payments", ["consumer_id"], name: "index_payments_on_consumer_id", using: :btree
+
+  create_table "static_flashes", force: :cascade do |t|
+    t.datetime "expires"
+    t.string   "content",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "static_flashes", ["expires"], name: "index_static_flashes_on_expires", using: :btree
 
   create_table "tallysheet_entries", force: :cascade do |t|
-    t.integer  "consumer_id"
-    t.integer  "beverage_id"
-    t.integer  "amount",      default: 1
-    t.boolean  "payed"
+    t.integer  "consumer_id", limit: 4
+    t.integer  "beverage_id", limit: 4
+    t.integer  "amount",      limit: 4, default: 1
+    t.boolean  "payed",       limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "tallysheet_entries", ["beverage_id"], name: "index_tallysheet_entries_on_beverage_id"
-  add_index "tallysheet_entries", ["consumer_id"], name: "index_tallysheet_entries_on_consumer_id"
+  add_index "tallysheet_entries", ["beverage_id"], name: "index_tallysheet_entries_on_beverage_id", using: :btree
+  add_index "tallysheet_entries", ["consumer_id"], name: "index_tallysheet_entries_on_consumer_id", using: :btree
 
+  add_foreign_key "payments", "consumers"
 end

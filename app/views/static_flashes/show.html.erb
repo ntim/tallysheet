@@ -1,0 +1,25 @@
+<div class="page-header"><h1>Static Flash</h1></div>
+
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Expires</label>
+		<div class="col-sm-10">
+  			<input value="<%= @static_flash.expires.to_formatted_s(:db) %>" name="expires" type="text" class="form-control" disabled/>
+  		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Content</label>
+		<div class="col-sm-10">
+			<textarea name="expires" class="form-control" disabled><%= sanitize @static_flash.content %></textarea>	
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<%= link_to 'Edit', edit_static_flash_path(@static_flash), class: "btn btn-primary" %>
+		</div>
+	</div>
+</form>
+
+<hr>
+
+<%= link_to 'Back', static_flashes_path, class: "btn btn-default" %>
