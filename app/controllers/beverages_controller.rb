@@ -1,5 +1,5 @@
 class BeveragesController < ApplicationController
-  before_filter :authenticate, :only => [:edit, :update, :destroy]
+  before_filter :authenticate, :only => [:edit, :update, :destroy, :create]
   before_action :set_beverage, :only => [:show, :edit, :update, :destroy]
   
   include Sortable

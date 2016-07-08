@@ -47,4 +47,8 @@ module ApplicationHelper
   def sortable_numeric(column, title = nil)
     sortable(column, title, "numeric")
   end
+  
+  def authenticated?
+    not request.authorization.nil?
+  end
 end

@@ -30,7 +30,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-            	<% if !session[:authenticated] %>
+            	<% if !authenticated? %>
             	<%= link_to "Login", controller: "dashboard", action: "login" %>
             	<% else %>
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></span></a>

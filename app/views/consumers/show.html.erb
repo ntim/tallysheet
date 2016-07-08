@@ -80,7 +80,7 @@
 	<% end %>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<% if session[:authenticated] %>
+			<% if authenticated? %>
 			<%= link_to 'Edit', edit_consumer_path(@consumer), class: "btn btn-primary" %>
 			<%= link_to 'Pay', consumer_pay_path(@consumer), class: "btn btn-success" %>
 			<%= link_to 'Transfer', consumer_transfer_path(@consumer), class: "btn btn-success" %>

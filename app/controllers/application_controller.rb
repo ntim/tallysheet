@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
     session[:authenticated] = authenticate_or_request_with_http_basic do |username, password|
       username == "tally" && password == "sheet!"
     end
-    session[:authenticated]
   end
 
   def set_rendering_start_time
