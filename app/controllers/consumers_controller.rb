@@ -14,9 +14,12 @@ class ConsumersController < ApplicationController
       if numeric?(params[:amount])
         @consumer.pay params[:amount].to_f
         flash[:notice] = "Successfully payed #{params[:amount]} &euro;."
-        redirect_to @consumer
       else
         flash[:error] = "Amount has to be numeric."
+      end
+      respond_to do |format|
+          format.html { redirect_to @consumer }
+          format.json { head :no_content }
       end
     end
   end
@@ -28,9 +31,12 @@ class ConsumersController < ApplicationController
         recipient = Consumer.find(params[:recipient_id])
         @consumer.transfer recipient, params[:amount].to_f
         flash[:notice] = "Successfully transferred #{params[:amount]} &euro; to #{recipient.name}."
-        redirect_to @consumer
       else
         flash[:error] = "Amount has to be numeric."
+      end
+      respond_to do |format|
+          format.html { redirect_to @consumer }
+          format.json { head :no_content }
       end
     end
   end
