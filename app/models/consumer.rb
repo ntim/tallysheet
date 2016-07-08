@@ -1,12 +1,12 @@
 class Consumer < ActiveRecord::Base
   has_many :tallysheet_entries
-  has_many :payments
+  has_many :payments, :dependent => :destroy
 
   validates :name, presence: true
   validates :email, presence: true, email: true
   validates :credit, numericality: true
   
-  before_destroy :before_destroy_callback
+  before_destroy :destroyable?
   
   def derive_amount_of_paid_beverages
     amount = 0
@@ -70,15 +70,5 @@ class Consumer < ActiveRecord::Base
 
   def destroyable?
     self.amount_of_paid_beverages == 0 && self.amount_of_beverages == 0 && self.debt == 0
-  end
-
-  private
-
-  def before_destroy_callback
-    if !destroyable?
-      errors[:base] << "Consumer can not be deleted."
-    return false
-    end
-    self.payments.destroy
   end
 end
