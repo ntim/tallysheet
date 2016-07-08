@@ -21,7 +21,7 @@
 			<td><%= link_to 'Show', consumer, class: "btn btn-default btn-xs" %>
 			<%= link_to 'Pay', consumer_pay_path(consumer), class: "btn btn-success btn-xs" %>
 			<%= link_to 'Edit', edit_consumer_path(consumer), class: "btn btn-primary btn-xs" %>
-			<%= link_to 'Destroy', consumer, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" %></td>
+			<%= link_to 'Destroy', consumer, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs", disabled: !consumer.destroyable? %></td>
 		</tr>
 		<% end %>
 	</tbody>
