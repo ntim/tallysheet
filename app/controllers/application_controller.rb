@@ -28,6 +28,6 @@ class ApplicationController < ActionController::Base
   end
   
   def set_static_flashes
-     @static_flashes = StaticFlash.where("expires > NOW()").order("expires ASC").all
+     @static_flashes = StaticFlash.where("expires > \"#{Time.zone.now.to_s(:db)}\"").order("expires ASC").all
   end
 end
