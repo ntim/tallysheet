@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate, :only => [:login]
+  before_filter :authenticate, :only => [:login, :mail]
   before_action :set_consumers, :only => [:index, :render_partial]
   include Sortable
 
@@ -20,6 +20,22 @@ class DashboardController < ApplicationController
     week_tag = "DATE_FORMAT(created_at, '%Y-%U')"
     date_format = "%Y-%U"
     render :json => time_series(1.year, week_tag, date_format)
+  end
+  
+  def mail
+    if params[:subject] != nil && params[:body] != nil
+      # Get all consumers
+      consumers = Consumer.where(visible: true).all
+      consumers.each do |consumer|
+        ConsumersMailer.generic(consumer, params[:subject], params[:body], params[:reply_to]).deliver
+      end
+      #
+      flash[:notice] = "Delivered email to visible consumers: #{consumers.map{|c| c.name }.join(", ")}."
+      respond_to do |format|
+          format.html { redirect_to root_path }
+          format.json { head :no_content }
+      end
+    end
   end
 
   private

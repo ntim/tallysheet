@@ -1,5 +1,5 @@
 class ConsumersController < ApplicationController
-  before_filter :authenticate, :only => [:new, :create, :mail_debt_reminder, :pay, :edit, :update, :destroy, :transfer, :update_derived]
+  before_filter :authenticate, :only => [:new, :create, :mail_debt_reminder, :pay, :edit, :update, :destroy, :transfer, :update_derived, :mail]
   before_action :set_consumer, :only => [:show, :edit, :update, :destroy, :history, :payments, :mail_debt_reminder, :transfer, :pay, :mail]
   include ApplicationHelper
 
@@ -49,7 +49,7 @@ class ConsumersController < ApplicationController
   
   def mail  
     if params[:subject] != nil && params[:body] != nil
-      ConsumersMailer.generic(@consumer, params[:subject], params[:body]).deliver
+      ConsumersMailer.generic(@consumer, params[:subject], params[:body], params[:reply_to]).deliver
       flash[:notice] = "Delivered email to %s." % @consumer.name
       respond_to do |format|
           format.html { redirect_to @consumer }

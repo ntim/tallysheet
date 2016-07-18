@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1><%= @consumer.name %> <small>Mail</small></h1>
+	<h1>Mail to all consumers</h1>
 </div>
 
 <p>
@@ -7,7 +7,7 @@
 	Only use text, no HTML.
 </p>
 
-<%= form_tag(consumer_mail_path(@consumer), class: "form-horizontal") do %>
+<%= form_tag({controller: "dashboard", action: "mail"}, class: "form-horizontal") do %>
 
 <div class="form-group">
 	<%= label_tag :subject, nil, class: "col-sm-2 control-label" %>
@@ -25,7 +25,7 @@
 
 <div class="form-group">
 	<div class="col-sm-10 col-sm-offset-2 text-muted">
-		Hello <%= @consumer.name%>,<br/>
+		Hello ...,<br/>
 		</br/>
 	</div>
 </div>
@@ -54,4 +54,4 @@
 
 <hr>
 
-<%= link_to 'Back', consumer_path(@consumer), class: "btn btn-default" %>
+<%= link_to 'Back', root_path, class: "btn btn-default" %>

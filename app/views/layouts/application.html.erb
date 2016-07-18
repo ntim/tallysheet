@@ -37,6 +37,7 @@
             	<ul class="dropdown-menu" role="menu">
           			<li><%= active_link_to 'New consumer', new_consumer_path %></li>
             		<li><%= active_link_to "All consumers", controller: "consumers", action: "index" %></li>
+          			<li><%= active_link_to 'Mail to all consumers', controller: "dashboard", action: "mail" %></li>
 			        <li><%= active_link_to "All beverages", controller: "beverages", action: "index" %></li>
 					<li><%= active_link_to "All tallysheet entries", controller: "tallysheet_entries", action: "index" %></li>
             		<li><%= active_link_to "All static flash messages", controller: "static_flashes", action: "index" %></li>      

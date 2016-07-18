@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   
   get '/dashboard/weekly'
   get '/dashboard/hourly'
+  get '/dashboard/mail'
+  post '/dashboard/mail'
   resources :dashboard
 
   # You can have the root of your site routed with "root"
