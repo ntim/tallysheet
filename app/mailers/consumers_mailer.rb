@@ -5,4 +5,11 @@ class ConsumersMailer < ActionMailer::Base
     @consumer = consumer
     mail(to: @consumer.email, subject: 'Reminder on your tallysheet debt')
   end
+  
+  def generic(consumer, subject, body)
+    @consumer = consumer
+    @body = body
+    mail(to: @consumer.email, subject: subject)
+  end
+
 end

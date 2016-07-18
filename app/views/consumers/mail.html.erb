@@ -1,0 +1,50 @@
+<div class="page-header">
+	<h1><%= @consumer.name %> <small>Mail</small></h1>
+</div>
+
+<p>
+	Send a mail to this consumer.
+	Only use text, no HTML.
+</p>
+
+<%= form_tag(consumer_mail_path(@consumer), class: "form-horizontal") do %>
+
+<div class="form-group">
+	<%= label_tag :subject, nil, class: "col-sm-2 control-label" %>
+	<div class="col-sm-10">
+		<%= text_field_tag :subject, "", placeholder: "Subject", class: "form-control", required: "required" %>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-sm-10 col-sm-offset-2 text-muted">
+		Hello <%= @consumer.name%>,<br/>
+		</br/>
+	</div>
+</div>
+	
+<div class="form-group">
+	<%= label_tag :body, nil, class: "col-sm-2 control-label" %>
+	<div class="col-sm-10">
+		<%= text_area_tag :body, nil, placeholder: "Your message goes here...", class: "form-control", required: "required" %>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-sm-10 col-sm-offset-2 text-muted">
+		--<br/>
+		The Tallysheet is available at <%= root_url %>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+		<%= submit_tag 'Mail', class: "btn btn-primary", data: { confirm: 'Are you sure?' } %>
+	</div>
+</div>
+
+<% end %>
+
+<hr>
+
+<%= link_to 'Back', consumer_path(@consumer), class: "btn btn-default" %>

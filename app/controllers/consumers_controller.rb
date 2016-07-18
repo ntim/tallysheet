@@ -1,6 +1,6 @@
 class ConsumersController < ApplicationController
   before_filter :authenticate, :only => [:new, :create, :mail_debt_reminder, :pay, :edit, :update, :destroy, :transfer, :update_derived]
-  before_action :set_consumer, :only => [:show, :edit, :update, :destroy, :history, :payments, :mail_debt_reminder, :transfer, :pay]
+  before_action :set_consumer, :only => [:show, :edit, :update, :destroy, :history, :payments, :mail_debt_reminder, :transfer, :pay, :mail]
   include ApplicationHelper
 
   # GET /consumers
@@ -45,6 +45,17 @@ class ConsumersController < ApplicationController
     ConsumersMailer.debt_reminder(@consumer).deliver
     flash[:notice] = "Delivered reminder email to %s." % @consumer.name
     redirect_to :back
+  end
+  
+  def mail  
+    if params[:subject] != nil && params[:body] != nil
+      ConsumersMailer.generic(@consumer, params[:subject], params[:body]).deliver
+      flash[:notice] = "Delivered email to %s." % @consumer.name
+      respond_to do |format|
+          format.html { redirect_to @consumer }
+          format.json { head :no_content }
+      end
+    end
   end
   
   def history

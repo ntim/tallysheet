@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get 'mail_debt_reminder'
     get 'history'
     get 'payments'
+    get 'mail'
+    post 'mail'
   end
   
   get '/dashboard/weekly'

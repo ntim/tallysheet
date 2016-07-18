@@ -15,6 +15,7 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require d3
+//= require bootstrapValidator.min
 //= require_tree .
 
 Array.prototype.unique = function() {
@@ -37,4 +38,15 @@ $(document).on('ready page:load', function() {
 	}, 5000);
 	// Active links.
     $('a.active').parent().addClass('active');
+    // Form validation.
+    $('form')
+    .bootstrapValidator({})
+    .on('success.form.bv', function(e) {
+        // Called when the form is valid
+
+        var $form = $(e.target);
+        if ($form.data('remote') && $.rails !== undefined) {
+            e.preventDefault();
+        }
+    });
 });

@@ -64,3 +64,7 @@ gem 'active_link_to'
 
 # D3
 gem 'd3_rails'
+
+# Bootstrap form validation
+gem 'bootstrap-validator-rails'
+
