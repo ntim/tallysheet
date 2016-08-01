@@ -2,13 +2,12 @@ class ConsumersController < ApplicationController
   before_filter :authenticate, :only => [:new, :create, :mail_debt_reminder, :pay, :edit, :update, :destroy, :transfer, :update_derived, :mail]
   before_action :set_consumer, :only => [:show, :edit, :update, :destroy, :history, :payments, :mail_debt_reminder, :transfer, :pay, :mail]
   include ApplicationHelper
-
   # GET /consumers
   # GET /consumers.json
   def index
     @consumers = Consumer.all
   end
-  
+
   def pay
     if params[:amount] != nil
       if numeric?(params[:amount])
@@ -18,12 +17,12 @@ class ConsumersController < ApplicationController
         flash[:error] = "Amount has to be numeric."
       end
       respond_to do |format|
-          format.html { redirect_to @consumer }
-          format.json { head :no_content }
+        format.html { redirect_to @consumer }
+        format.json { head :no_content }
       end
     end
   end
-  
+
   def transfer
     @recipients = Consumer.where("id != #{params[:consumer_id]}").order("name ASC").all
     if params[:amount] != nil
@@ -35,50 +34,43 @@ class ConsumersController < ApplicationController
         flash[:error] = "Amount has to be numeric."
       end
       respond_to do |format|
-          format.html { redirect_to @consumer }
-          format.json { head :no_content }
+        format.html { redirect_to @consumer }
+        format.json { head :no_content }
       end
     end
   end
-  
+
   def mail_debt_reminder
     ConsumersMailer.debt_reminder(@consumer).deliver
     flash[:notice] = "Delivered reminder email to %s." % @consumer.name
     redirect_to :back
   end
-  
-  def mail  
+
+  def mail
     if params[:subject] != nil && params[:body] != nil
       ConsumersMailer.generic(@consumer, params[:subject], params[:body], params[:reply_to]).deliver
       flash[:notice] = "Delivered email to %s." % @consumer.name
       respond_to do |format|
-          format.html { redirect_to @consumer }
-          format.json { head :no_content }
+        format.html { redirect_to @consumer }
+        format.json { head :no_content }
       end
     end
   end
-  
+
   def history
     @tallysheet_entries = TallysheetEntry.where(:consumer => @consumer).paginate(:page => params[:page], :per_page => 12)
   end
 
   def payments
-  	@payments = Payment.where(consumer: @consumer).paginate(:page => params[:page], :per_page => 12)
+    @payments = Payment.where(consumer: @consumer).paginate(:page => params[:page], :per_page => 12)
   end
-
 
   # GET /consumers/1
   # GET /consumers/1.json
   def show
-    total = TallysheetEntry.where(consumer: @consumer).sum(:amount) * 1.0
-    @quota = Hash.new
-    Beverage.all.each do |b|
-      if total > 0
-      	@quota[b] = TallysheetEntry.where(consumer: @consumer, beverage: b).sum(:amount) / total
-      else
-      	@quota[b] = 0
-      end
-    end
+    @quota = TallysheetEntry.where(consumer: @consumer).group(:beverage).count
+    total = @quota.map{|k,v| v}.sum
+    @quota.each{|k,v| @quota[k] = 1.0 * v / total}
   end
 
   # GET /consumers/new
@@ -129,7 +121,7 @@ class ConsumersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   # GET /consumers/update_derived
   def update_derived
     consumers = Consumer.all
@@ -143,17 +135,18 @@ class ConsumersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_consumer
-      if params.has_key? :consumer_id
-      	@consumer = Consumer.find(params[:consumer_id])
-      else
-        @consumer = Consumer.find(params[:id])
-      end
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def consumer_params
-      params.require(:consumer).permit(:name, :email, :credit, :visible)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_consumer
+    if params.has_key? :consumer_id
+      @consumer = Consumer.find(params[:consumer_id])
+    else
+      @consumer = Consumer.find(params[:id])
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def consumer_params
+    params.require(:consumer).permit(:name, :email, :credit, :credit_humanized, :visible)
+  end
 end

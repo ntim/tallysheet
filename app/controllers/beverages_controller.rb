@@ -14,12 +14,9 @@ class BeveragesController < ApplicationController
   def prices
     set_default_sort_column("name")
     @beverages = Beverage.order(sort_column + " " + sort_direction).load()
-    total = TallysheetEntry.sum(:amount) * 1.0
-    @quota = Hash.new
-    @beverages.each do |b|
-      puts TallysheetEntry.where(beverage: b).sum(:amount)
-      @quota[b] = TallysheetEntry.where(beverage: b).sum(:amount) / total
-    end
+    @quota = TallysheetEntry.all().group(:beverage).count
+    total = @quota.map{|k,v| v}.sum
+    @quota.each{|k,v| @quota[k] = 1.0 * v / total}
   end
 
   # GET /beverages/1
@@ -85,6 +82,6 @@ class BeveragesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def beverage_params
-    params.require(:beverage).permit(:name, :price, :available)
+    params.require(:beverage).permit(:name, :price, :price_humanized, :available)
   end
 end
