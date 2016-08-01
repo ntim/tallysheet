@@ -1,10 +1,14 @@
 class Consumer < ActiveRecord::Base
+  include Monetizable
+  
   has_many :tallysheet_entries
   has_many :payments, :dependent => :destroy
 
   validates :name, presence: true
   validates :email, presence: true, email: true
   validates :credit, numericality: true
+  
+  humanized_money_accessor :credit, :debt
   
   before_destroy :destroyable?
   

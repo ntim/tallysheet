@@ -37,7 +37,7 @@
 	<%= f.label :credit, class: "col-sm-2 control-label" %>
 	<div class="col-sm-10">
 		<div class="input-group">
-			<%= f.number_field :credit, class: "form-control", required: "required" %>
+			<%= f.number_field :credit_humanized, class: "form-control", required: "required", min: "-10000", max: "10000", step: "0.01" %>
 			<span class="input-group-addon">&euro;</span>
 		</div>
 	</div>

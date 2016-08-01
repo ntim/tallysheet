@@ -35,7 +35,7 @@
 		<label class="col-sm-2 control-label">Credit</label>
 		<div class="col-sm-10">
 			<div class="input-group">
-				<input value="<%= "%.2f" % @consumer.credit %>" name="saldo" type="text" class="form-control" disabled/>
+				<input value="<%= @consumer.credit_humanized %>" name="saldo" type="text" class="form-control" disabled/>
 				<span class="input-group-addon">&euro;</span>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 		<label class="col-sm-2 control-label">Debt</label>
 		<div class="col-sm-10">
 			<div class="input-group">
-				<input value="<%= "%.2f" % @consumer.debt %>" name="saldo" type="text" class="form-control" disabled/>
+				<input value="<%= @consumer.debt_humanized %>" name="saldo" type="text" class="form-control" disabled/>
 				<span class="input-group-addon">&euro;</span>
 			</div>
 			(Unpaid beverages minus credit.)

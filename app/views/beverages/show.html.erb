@@ -13,7 +13,7 @@
 		<label class="col-sm-2 control-label">Price</label>
 		<div class="col-sm-10">
 			<div class="input-group">
-				<input value="<%= "%.2f" % @beverage.price %>" name="price" type="text" class="form-control" disabled/>
+				<input value="<%= @beverage.price_humanized %>" name="price" type="text" class="form-control" disabled/>
 				<span class="input-group-addon">&euro;</span>
 			</div>
 		</div>
