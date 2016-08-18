@@ -40,13 +40,43 @@ $(document).on('ready page:load', function() {
     $('a.active').parent().addClass('active');
     // Form validation.
     $('form')
-    .bootstrapValidator({})
-    .on('success.form.bv', function(e) {
-        // Called when the form is valid
+        .bootstrapValidator({})
+        .on('success.form.bv', function(e) {
+            // Called when the form is valid
 
-        var $form = $(e.target);
-        if ($form.data('remote') && $.rails !== undefined) {
-            e.preventDefault();
-        }
+            var $form = $(e.target);
+            if ($form.data('remote') && $.rails !== undefined) {
+                e.preventDefault();
+            }
     });
+    var socket = new WebSocket("ws://" + window.location.host + "/websocket");
+    socket.onmessage = function(event) {
+        console.log(event);
+        if (event.data.length) {
+            var data = JSON.parse(event.data);
+            // For tallysheet entries
+            if (data.tallysheet_entry && data.tallysheet_entry.create) {
+                var id = data.tallysheet_entry.create.id;
+                var html = '<div class="alert alert-info alert-dismissable-' + id + ' fade in"><button class="close" data-dismiss="alert">×</button>'
+                html += 'A new tallysheet entry has just been created.'
+                html += '</div>'
+                $("#flash").prepend(html);
+                setInterval(function() {
+                    $('.alert-dismissable-' + id).alert('close');
+                }, 5000);
+            }
+            // For payments
+            if (data.payment && data.payment.create) {
+                var id = data.payment.create.id;
+                var html = '<div class="alert alert-info alert-dismissable-' + id + ' fade in"><button class="close" data-dismiss="alert">×</button>'
+                html += 'A payment of ' + data.payment.create.amount.toFixed(2) + ' € has just been made.'
+                html += '</div>'
+                $("#flash").prepend(html);
+                setInterval(function() {
+                    $('.alert-dismissable-' + id).alert('close');
+                }, 5000);
+            }
+        }
+    };
 });
+

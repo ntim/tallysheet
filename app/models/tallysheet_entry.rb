@@ -18,6 +18,7 @@ class TallysheetEntry < ActiveRecord::Base
     self.consumer.debt += self.price
     self.consumer.amount_of_beverages += self.amount
     self.consumer.save  
+    Redis.new.publish "active_record", {:tallysheet_entry => {:create => self}}.to_json
   end
   
   before_destroy do
@@ -28,9 +29,11 @@ class TallysheetEntry < ActiveRecord::Base
       self.consumer.amount_of_paid_beverages -= self.amount
     end
     self.consumer.save    
+    Redis.new.publish "active_record", {:tallysheet_entry => {:destroy => self}}.to_json
   end
   
   after_update do
     self.consumer.update_derived
+    Redis.new.publish "active_record", {:tallysheet_entry => {:update => self}}.to_json
   end
 end

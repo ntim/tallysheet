@@ -37,6 +37,9 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root 'dashboard#index'
 
+  # Websockets
+  get '/websocket' => 'websocket#websocket'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

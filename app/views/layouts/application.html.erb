@@ -59,6 +59,14 @@
 	<% end %>
     
 	<div id="flash" class="container">
+  <% if not flash.empty? %>
+    <% flash.each do |key, value| %>
+    <div class="alert <%= flash_class(key) %> alert-dismissable fade in">
+      <button class="close" data-dismiss="alert">×</button>
+      <%= value.html_safe %>
+    </div>
+    <% end %>
+  <% end %>
 	<% if not @static_flashes.empty? and current_page?(root_url) %>
 		<% @static_flashes.each do |flash| %>
 		<div class="alert <%= flash_class("success") %> fade in">
@@ -68,31 +76,21 @@
 		</div>
 		<% end %>
 	<% end %>
-	<% if not flash.empty? %>
-		<% flash.each do |key, value| %>
-		<div class="alert <%= flash_class(key) %> alert-dismissable fade in">
-			<button class="close" data-dismiss="alert">×</button>
-			<%= value.html_safe %>
-		</div>
-		<% end %>
-	<% end %>
 	</div>
     
-	<div id="flash" class="container">
-	</div>
-    
-    <div class="container" role="main">
+  <div class="container" role="main">
 		<%= yield %>
-    </div>
+  </div>
     
-    <div class="container footer">
-    	<hr/>
-    	<p class="text-muted">
-	    	<a href="http://www.rubyonrails.org" target="_blank">Ruby On Rails</a> | 
-	    	<a href="http://www.getbootstrap.com" target="_blank">Bootstrap</a> | 
-	    	<a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a> | 
-	    	<span><%= rendering_time %></span>
-    	</center>
-    </div>
+  <div class="container footer">
+    <hr/>
+    <p class="text-muted">
+	    <a href="http://www.rubyonrails.org" target="_blank">Ruby On Rails</a> | 
+	    <a href="http://www.getbootstrap.com" target="_blank">Bootstrap</a> | 
+	    <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a> | 
+	    <span><%= rendering_time %></span>
+    </center>
+  </div>
+  
   </body>
 </html>
