@@ -15,7 +15,7 @@
 		<% @consumers.each do |consumer| %>
 		<tr>
 			<td><%= consumer.name %></td>
-			<td><%= consumer.email %></td>
+			<td><% if authenticated? %><%= consumer.email %><% else %>-<% end %></td>
         	<td><span class="glyphicon glyphicon-<%= consumer.visible ? 'ok' : 'remove' %>" aria-hidden="true"></span></td>
 			<td><%= style_credit consumer.credit %></td>
 			<td><%= link_to 'Show', consumer, class: "btn btn-default btn-xs" %>

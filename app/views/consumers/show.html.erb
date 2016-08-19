@@ -19,12 +19,14 @@
 			<input value="<%= @consumer.name %>" name="name" type="text" class="form-control" disabled/>
 		</div>
 	</div>
+	<% if authenticated? %>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">E-Mail</label>
 		<div class="col-sm-10">
 			<input value="<%= @consumer.email %>" name="name" type="text" class="form-control" disabled/>
 		</div>
 	</div>
+	<% end %>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Visible</label>
 		<div class="col-sm-10">
