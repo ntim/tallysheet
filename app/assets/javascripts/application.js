@@ -30,24 +30,7 @@ Array.prototype.unique = function() {
     return a;
 };
 
-$(document).on('turbolinks:load', function() {
-	// Fade out flash messages.
-	setInterval(function() {
-		$('.alert-dismissable').alert('close');
-	}, 5000);
-	// Active links.
-    $('a.active').parent().addClass('active');
-    // Form validation.
-    $('form')
-        .bootstrapValidator({})
-        .on('success.form.bv', function(e) {
-            // Called when the form is valid
-
-            var $form = $(e.target);
-            if ($form.data('remote') && $.rails !== undefined) {
-                e.preventDefault();
-            }
-    });
+$(document).on('ready', function() {
     var socket = new WebSocket("ws://" + window.location.host + "/websocket");
     socket.onmessage = function(event) {
         console.log(event);
@@ -77,5 +60,34 @@ $(document).on('turbolinks:load', function() {
             }
         }
     };
+    // Try to close socket gracefully (not realiably implemented in all browsers).
+    $(window).bind('beforeunload', function() {
+        socket.close();
+        console.log("Websocket closed.");
+    });
+    $(window).unload(function(){
+        socket.close();
+        console.log("Websocket closed.");
+    });
+})
+
+$(document).on('turbolinks:load', function() {
+	// Fade out flash messages.
+	setInterval(function() {
+		$('.alert-dismissable').alert('close');
+	}, 5000);
+	// Active links.
+    $('a.active').parent().addClass('active');
+    // Form validation.
+    $('form')
+        .bootstrapValidator({})
+        .on('success.form.bv', function(e) {
+            // Called when the form is valid
+
+            var $form = $(e.target);
+            if ($form.data('remote') && $.rails !== undefined) {
+                e.preventDefault();
+            }
+    });
 });
 
