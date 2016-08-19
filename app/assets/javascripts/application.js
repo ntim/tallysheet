@@ -30,7 +30,7 @@ Array.prototype.unique = function() {
     return a;
 };
 
-$(document).on('ready page:load', function() {
+$(document).on('turbolinks:load', function() {
 	// Fade out flash messages.
 	setInterval(function() {
 		$('.alert-dismissable').alert('close');
