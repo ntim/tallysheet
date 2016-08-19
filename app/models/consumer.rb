@@ -10,8 +10,6 @@ class Consumer < ActiveRecord::Base
   
   humanized_money_accessor :credit, :debt
   
-  before_destroy :destroyable?
-  
   def derive_amount_of_paid_beverages
     amount = 0
     self.tallysheet_entries.each do |e|
@@ -75,4 +73,20 @@ class Consumer < ActiveRecord::Base
   def destroyable?
     self.amount_of_paid_beverages == 0 && self.amount_of_beverages == 0 && self.debt == 0
   end
+
+  after_create do
+    Redis.new.publish "active_record", {:consumer => {:create => self}}.to_json(:except=> [:email])
+  end
+
+  after_update do
+    Redis.new.publish "active_record", {:consumer => {:update => self}}.to_json(:except=> [:email])
+  end
+
+  before_destroy do
+    if destroyable?
+      Redis.new.publish "active_record", {:consumer => {:destroy => self}}.to_json(:except=> [:email])
+    end
+    destroyable?
+  end
+
 end
