@@ -14,7 +14,7 @@ class BeveragesController < ApplicationController
   def prices
     set_default_sort_column("name")
     @beverages = Beverage.order(sort_column + " " + sort_direction).load()
-    @quota = TallysheetEntry.all().group(:beverage).count
+    @quota = TallysheetEntry.all().group(:beverage).sum(:amount)
     total = @quota.map{|k,v| v}.sum
     @quota.each{|k,v| @quota[k] = 1.0 * v / total}
   end
