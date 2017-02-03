@@ -83,4 +83,6 @@ Rails.application.configure do
   	openssl_verify_mode: "none"
   }
 
+  config.middleware.delete Rack::Lock
+
 end
