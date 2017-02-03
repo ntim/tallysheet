@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require d3
 //= require bootstrapValidator.min
+//= require sisyphus.min
 //= require_tree .
 
 Array.prototype.unique = function() {
@@ -69,6 +70,8 @@ $(document).on('ready', function() {
         socket.close();
         console.log("Websocket closed.");
     });
+    // Remember form entries.
+    $("form.sisyphus").sisyphus({autoRelease: false});
 })
 
 $(document).on('turbolinks:load', function() {
@@ -89,5 +92,7 @@ $(document).on('turbolinks:load', function() {
                 e.preventDefault();
             }
     });
+    // Remember form entries.
+    $("form.sisyphus").sisyphus({autoRelease: false});
 });
 
