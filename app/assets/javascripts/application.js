@@ -71,7 +71,7 @@ $(document).on('ready', function() {
         console.log("Websocket closed.");
     });
     // Remember form entries.
-    $("form.sisyphus").sisyphus({autoRelease: false});
+    $("form.sisyphus").sisyphus({autoRelease: false, excludeFields: $( "input[type=hidden]" )});
 })
 
 $(document).on('turbolinks:load', function() {
